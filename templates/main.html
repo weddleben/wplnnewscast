@@ -1,0 +1,49 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>
+            Test Feed
+        </h1>
+    </header>
+
+    {% block content %}
+
+    <h2>
+        Showing 50 most recents episodes
+    </h2>
+
+    <br>
+
+    {%for item in items[:50] %}
+    <h2 style="margin-bottom: 0%;">
+        Title: {{ item[0] }}
+    </h2>
+
+    <h3 style="margin-top: 0;">
+        Pub Date: {{ item[1] }}
+    </h3>
+
+        <audio controls src="{{ item[2] }}">
+            something
+        </audio>
+
+    <br>
+    <br>
+
+    {% endfor %}
+
+    {% endblock %}
+
+</body>
+
+
+</html>
