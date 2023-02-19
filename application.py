@@ -4,13 +4,9 @@ from rss import get_items
 
 application = Flask(__name__)
 
-def pull_feed():
-    items = get_items()
-    return items
-
 @application.route('/', methods=['GET', 'POST'])
 def main():
-    items = pull_feed()
+    items = get_items()
     length = len(items)
     return(render_template('main.html', items=items, length=length))
 
@@ -21,7 +17,6 @@ def about():
 
 @application.errorhandler(404)
 def page_not_found(e):
-    # note that we set the 404 status explicitly
     return render_template('404.html'), 404
 
 @application.errorhandler(500)
