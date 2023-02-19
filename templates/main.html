@@ -4,22 +4,28 @@
 
 <head>
     <meta charset="utf-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
     <header>
-        <h1>
-            Test Feed
-        </h1>
+        <a href="{{ url_for('main') }}" class="header_text">HOME</a>
     </header>
 
-    {% block content %}
+    <h1 class="title">
+        WPLN Newscasts
+    </h1>
 
-    <h2>
-        Showing 50 most recents episodes
-    </h2>
+    {% block content %}
+    <br>
+
+    <div class="episodes">
+
+    <h3>
+        <em>Showing 50 most recents newscasts</em>
+    </h3>
 
     <br>
 
@@ -32,16 +38,25 @@
         Pub Date: {{ item[1] }}
     </h3>
 
-        <audio controls src="{{ item[2] }}">
+    <div>
+        <audio controls src="{{ item[2] }}" class="episode_download_link">
             something
         </audio>
+        <a href="{{ item[2] }}" class="episode_download_link">Download</a>
+    </div>
 
     <br>
     <br>
 
     {% endfor %}
 
+</div>
+
     {% endblock %}
+
+<footer>
+    <a href="{{ url_for('about') }}" class="footer_text">ABOUT</a>
+</footer>
 
 </body>
 
