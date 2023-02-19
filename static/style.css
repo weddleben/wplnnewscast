@@ -1,7 +1,44 @@
-body {
-    background-color:aliceblue;
+html, body {
+    background-color:rgb(161, 201, 236);
 }
 
 header {
+    background-color: rgb(24, 23, 23);
+    padding: 15pt;
+}
+
+.header_text {
+    text-decoration: none;
+    font-size: 15pt;
+}
+
+footer {
     text-align: center;
+    background-color: rgb(24, 23, 23);
+    padding: 10pt;
+    box-shadow: 0 50vh 0 50vh rgb(24, 23, 23);
+}
+
+.footer_text {
+    text-decoration: none;
+    font-size: 15pt;
+}
+
+.title {
+    text-align: center;
+}
+
+.episodes {
+    padding-left: 1%;
+}
+
+.episode_download_link {
+    padding-right: 1%;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: large;
+}
+
+.about {
+    padding-left: 1%;
 }
