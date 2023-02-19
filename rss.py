@@ -1,7 +1,7 @@
 import requests
 import xml.etree.ElementTree as ET
 
-rss_url = 'https://feeds.megaphone.fm/darknetdiaries'
+rss_url = 'https://feeds.npr.org/510051/podcast.xml'
 
 def get_feed():
     '''get the feed and create an ET object, which can then be called from other functions.'''
@@ -34,3 +34,12 @@ def get_items():
         episodes.append(episode)
 
     return episodes
+
+def check_banner():
+    try:
+        banner = open('message.txt', 'r')
+        banner = banner.read()
+    except:
+        banner = 'none'
+
+    return banner

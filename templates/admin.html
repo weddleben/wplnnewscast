@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<br>
+
+<div style="text-align: center">
+    <form method="post">
+        <input type="text" name="user">
+        <br><br><br>
+        <input type="text" name="message" style="width: 50%; height: 100px;">
+        <br><br>
+        <input type="submit" value="hmmmm">
+    </form>
+</div>
+
+<br>
+
+<div style="font-size: 85pt; text-align: center;">{{ emoji|safe }}</div>
+
+
+{% endblock %}

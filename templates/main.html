@@ -22,44 +22,58 @@
     </h1>
 
     {% block content %}
+
+        <div class="alert alert-success" role="alert" style="text-align: center;" id="banner">
+            {{banner}}
+        </div>
     <br>
 
     <div class="episodes">
 
-    <h3>
-        <em>Showing {{length}} most recents newscasts</em>
-    </h3>
+        <h3>
+            <em>Showing {{length}} most recents newscasts</em>
+        </h3>
 
-    <br>
+        <br>
 
-    {%for item in items %}
-    <h2 style="margin-bottom: 0%;">
-        Title: {{ item[0] }}
-    </h2>
+        {%for item in items %}
+        <h3 style="margin-bottom: 0%;">
+            Title: {{ item[0] }}
+        </h3>
 
-    <h3 style="margin-top: 0;">
-        Pub Date: {{ item[1] }}
-    </h3>
+        <h4 style="margin-top: 0;">
+            Published: {{ item[1] }}
+        </h4>
 
-    <div>
-        <audio controls src="{{ item[2] }}" class="episode_download_link">
-            something
-        </audio>
-        <a href="{{ item[2] }}" class="episode_download_link">Download</a>
+        <div>
+            <audio controls src="{{ item[2] }}" class="episode_download_link">
+                something
+            </audio>
+            <a href="{{ item[2] }}" class="episode_download_link">Download</a>
+        </div>
+
+        <hr>
+
+        <br>
+
+        {% endfor %}
+
     </div>
-
-    <br>
-    <br>
-
-    {% endfor %}
-
-</div>
 
     {% endblock %}
 
-<footer>
-    <a href="{{ url_for('about') }}" class="footer_text">ABOUT</a>
-</footer>
+    <script>
+        const banner = document.getElementById('banner').innerText
+        console.log(banner)
+        if (banner === "") {
+            document.getElementById('banner').remove()
+        }
+    </script>
+
+    <footer>
+        <a href="{{ url_for('about') }}" class="footer_text">ABOUT</a>
+    </footer>
+
 
 </body>
 
