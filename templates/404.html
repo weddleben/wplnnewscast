@@ -2,14 +2,20 @@
 
 {% block content %}
 
+<br>
+
 <div style="text-align: center;">
 
     <img src="{{ url_for('static', filename='404.gif') }}" width="380" height="380" style="vertical-align: middle;">
 
 </div>
 
+<br>
+
 <h3>
     There's nothing to see here, but you could go back to the <a href="{{url_for('main')}}">main page.</a>
 </h3>
+
+<br>
 
 {% endblock %}
