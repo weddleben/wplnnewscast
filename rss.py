@@ -1,7 +1,7 @@
 import requests
 import xml.etree.ElementTree as ET
 
-rss_url = 'https://feeds.npr.org/510051/podcast.xml'
+rss_url = 'https://wplnnewscast.s3.us-east-2.amazonaws.com/rss/feed.xml'
 
 def get_feed():
     '''get the feed and create an ET object, which can then be called from other functions.'''
