@@ -1,2 +1,5 @@
 # pointless
 __pycache__
+
+# using some audio file for testing, don't track
+*.mp3
