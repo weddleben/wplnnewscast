@@ -1,6 +1,7 @@
 from datetime import datetime
 import os
 import subprocess
+import time
 import xml.etree.ElementTree as ET
 
 import boto3
@@ -27,7 +28,7 @@ class Episode():
         pass
 
     def title(self):
-        timestamp = datetime.now().strftime('%a %d %b %I:%M %p')
+        timestamp = datetime.now().strftime('%A %d %b %I:%M %p')
         return timestamp
     
     def filename(self):
@@ -38,14 +39,13 @@ class Episode():
         pub_date = datetime.now().strftime('%a, %d %b %Y %H:%M:%S -6000')
         return pub_date
     
-    def enclosure(self):
-        url = Episode.filename(self)
-        url = f'https://wplnnewscast.s3.us-east-2.amazonaws.com/rss/{url}'
+    def enclosure(self, filename):
+        url = f'https://wplnnewscast.s3.us-east-2.amazonaws.com/rss/{filename}'
         return url
     
-    def upload_file(self):
+    def upload_file(self, filename):
         try:
-            audio_filename = Episode.filename(self)
+            audio_filename = filename
             xml_filename = 'feed.xml' # doesn't change
 
             s3_client = boto3.client('s3')
@@ -54,11 +54,10 @@ class Episode():
         except Exception as err:
             print(f'error uploading to S3: {err}')
 
-    def record_and_save(self):
-        filename = Episode.filename(self)
-        subprocess.run(f'ffmpeg -t 20.5 -i http://npl.streamguys1.com/live {filename}')
+    def record_and_save(self, filename):
+        subprocess.run(f'ffmpeg -t 190 -f dshow -i audio="Line In (Realtek(R) Audio)" {filename}')
 
-    def add_new_episode(self):
+    def add_new_episode(self, filename):
         feed = download_feed()
         feed = ET.parse(feed)
         root = feed.getroot()
@@ -77,7 +76,7 @@ class Episode():
         item.append(pubDate)
 
         enclosure = ET.Element('enclosure')
-        enclosure.set('url', Episode.enclosure(self))
+        enclosure.set('url', Episode.enclosure(self, filename))
         item.append(enclosure)
 
         # insert the item element into the channel element, at index position 5
@@ -86,16 +85,19 @@ class Episode():
         ET.indent(feed) # makes the XML real pretty like
         feed.write('feed.xml')
     
-    def delete_local_audio_file(self):
-        filename = Episode.filename(self)
+    def delete_local_audio_file(self, filename):
         os.remove(filename)
 
 
 episode = Episode()
-
-episode.record_and_save()
-download_feed()
-episode.add_new_episode()
-episode.upload_file()
-episode.delete_local_audio_file()
-# need to add: delete the local feed as well after downloading
+try:
+    filename = episode.filename()
+    episode.record_and_save(filename)
+    download_feed()
+    episode.add_new_episode(filename)
+    episode.upload_file(filename)
+    episode.delete_local_audio_file(filename)
+    # need to add: delete the local feed as well after downloading
+except Exception as asdf:
+    print(asdf)
+    input()
