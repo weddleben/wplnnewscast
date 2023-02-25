@@ -5,3 +5,4 @@ venv
 
 # using some audio file for testing, don't track
 *.mp3
+.DS_Store
