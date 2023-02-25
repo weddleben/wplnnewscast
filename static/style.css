@@ -1,5 +1,5 @@
 html, body {
-    background-color:rgb(161, 201, 236);
+    background-color:rgb(190, 215, 235);
 }
 
 header {
@@ -11,6 +11,10 @@ header {
     text-decoration: none;
     font-size: 15pt;
 }
+
+/* .hero {
+    background: linear-gradient(rgb(190, 215, 235), black)
+} */
 
 footer {
     text-align: center;
@@ -28,8 +32,26 @@ footer {
     text-align: center;
 }
 
-.episodes {
+.episode_count {
     padding-left: 1%;
+}
+
+.episodes {
+    padding: 1%;
+    display: flex;
+    flex-flow:wrap;
+    gap: 15pt;
+    justify-content: space-between;
+}
+
+.episode {
+    /* background: linear-gradient( rgb(121, 178, 225), rgb(190, 215, 235)); */
+    /* border: solid; */
+    /* border-color: rgba(145, 87, 87, 0.389); */
+    box-shadow: 5px 5px 5px 2px;
+    padding: 20px;
+    flex: 1 1 0px;
+    
 }
 
 .episode_download_link {
