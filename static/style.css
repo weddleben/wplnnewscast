@@ -1,20 +1,22 @@
 html, body {
-    background-color:rgb(190, 215, 235);
+    background-color:rgb(217, 217, 217);
 }
 
 header {
+    text-align: left;
     background-color: rgb(24, 23, 23);
     padding: 15pt;
 }
 
 .header_text {
+    margin-right: 1%;
     text-decoration: none;
     font-size: 15pt;
+    
 }
-
-/* .hero {
-    background: linear-gradient(rgb(190, 215, 235), black)
-} */
+.header_text:hover {
+    color:brown;
+}
 
 footer {
     text-align: center;
@@ -41,16 +43,16 @@ footer {
     display: flex;
     flex-flow:wrap;
     gap: 15pt;
-    justify-content: space-between;
+    justify-content:center;
 }
 
 .episode {
-    /* background: linear-gradient( rgb(121, 178, 225), rgb(190, 215, 235)); */
+    background: linear-gradient( rgb(121, 178, 225), rgb(190, 215, 235));
     /* border: solid; */
     /* border-color: rgba(145, 87, 87, 0.389); */
-    box-shadow: 5px 5px 5px 2px;
+    box-shadow: 4px 4px 6px;
     padding: 20px;
-    flex: 1 1 0px;
+    flex: 1 1 auto;
     
 }
 

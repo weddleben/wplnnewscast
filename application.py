@@ -19,6 +19,10 @@ def main():
 def about():
     return render_template('about.html')
 
+@application.route('/podcast/')
+def podcast():
+    return render_template('podcast.html')
+
 @application.route('/admin/', methods=['GET', 'POST'])
 def admin():
     if request.method == 'POST':
@@ -45,4 +49,4 @@ def internal_error(e):
     return render_template("broken.html"), 500
 
 if __name__ == "__main__":
-    application.run(debug=True)
+    application.run(debug=True, host='0.0.0.0', port=2122)

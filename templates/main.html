@@ -9,13 +9,18 @@
     <meta name="description" content="Listen to past WPLN newscasts">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobile.css') }}">
 </head>
 
 <body>
 
     <header>
         <a href="{{ url_for('main') }}" class="header_text">HOME</a>
+        <a href="{{ url_for('podcast') }}" class="header_text">PODCAST</a>
     </header>
+
+    <br>
+    <br>
 
     <div class="hero">
 
@@ -23,16 +28,19 @@
         WPLN Newscasts
     </h1>
 
-    <h3 class="episode_count">
-        <em>Showing {{length}} most recents newscasts</em>
-    </h3>
 </div>
 
     {% block content %}
 
-        <div class="alert alert-success" role="alert" style="text-align: center;" id="banner">
+    <br>
+
+        <div class="alert alert-success" role="alert" style="text-align: center; margin-left: 5%; margin-right: 5%;" id="banner">
             {{banner}}
         </div>
+
+        <h3 class="episode_count">
+            <em>Showing {{length}} most recents newscasts</em>
+        </h3>
     <br>
 
     <div class="episodes">
@@ -41,12 +49,12 @@
 
         <div class="episode">
         <h3>
-            Title: {{ item[0] }}
+            {{ item[0] }}
         </h3>
 
-        <h4>
+        <!-- <h4>
             Published: {{ item[1] }}
-        </h4>
+        </h4> -->
 
         <div>
             <audio controls src="{{ item[2] }}" class="episode_download_link">
@@ -57,13 +65,12 @@
         </div>
 
         <!-- <hr> -->
-        <br>
-        <br>
-        <br>
 
         {% endfor %}
 
     </div>
+
+    <br>
 
     {% endblock %}
 
