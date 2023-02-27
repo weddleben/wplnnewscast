@@ -55,9 +55,9 @@ class Episode():
             print(f'error uploading to S3: {err}')
 
     def record_and_save(self, filename):
-        subprocess.run(f'ffmpeg -t 190 -f dshow -i audio="Line In (Realtek(R) Audio)" {filename}')
+        subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t 188 {filename}')
 
-    def add_new_episode(self, filename):
+    def add_new_episode(self, filename, episode_title):
         feed = download_feed()
         feed = ET.parse(feed)
         root = feed.getroot()
@@ -68,7 +68,7 @@ class Episode():
 
         # add elements to the item element
         title = ET.Element('title')
-        title.text = Episode.title(self)
+        title.text = episode_title
         item.append(title)
 
         pubDate = ET.Element('pubDate')
@@ -92,12 +92,14 @@ class Episode():
 episode = Episode()
 try:
     filename = episode.filename()
+    episode_title = episode.title()
     episode.record_and_save(filename)
     download_feed()
-    episode.add_new_episode(filename)
+    episode.add_new_episode(filename=filename, episode_title=episode_title)
     episode.upload_file(filename)
     episode.delete_local_audio_file(filename)
     # need to add: delete the local feed as well after downloading
 except Exception as asdf:
     print(asdf)
+    os.remove(filename)
     input()
