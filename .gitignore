@@ -1,7 +1,7 @@
 # pointless
 __pycache__
 
-venv
+venv/
 
 # using some audio file for testing, don't track
 *.mp3
