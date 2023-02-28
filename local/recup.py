@@ -1,3 +1,4 @@
+import argparse
 from datetime import datetime
 import os
 import subprocess
@@ -6,6 +7,11 @@ import xml.etree.ElementTree as ET
 
 import boto3
 import requests
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--record_length', type=str, required=True)
+args = parser.parse_args()
+record_length = args.record_length
 
 
 def delete_file(filename):
@@ -45,17 +51,13 @@ class Episode():
     
     def upload_file(self, filename):
         try:
-            audio_filename = filename
-            xml_filename = 'feed.xml' # doesn't change
-
             s3_client = boto3.client('s3')
-            s3_client.upload_file(f'{audio_filename}', "wplnnewscast", f'rss/{audio_filename}')
-            s3_client.upload_file(f'{xml_filename}', "wplnnewscast", f'rss/{xml_filename}')
+            s3_client.upload_file(f'{filename}', "wplnnewscast", f'rss/{filename}')
         except Exception as err:
             print(f'error uploading to S3: {err}')
 
     def record_and_save(self, filename):
-        subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t 188 {filename}')
+        subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t {record_length} {filename}')
 
     def add_new_episode(self, filename, episode_title):
         feed = download_feed()
@@ -96,10 +98,10 @@ try:
     episode.record_and_save(filename)
     download_feed()
     episode.add_new_episode(filename=filename, episode_title=episode_title)
-    episode.upload_file(filename)
+    episode.upload_file(filename=filename) # upload audio
+    episode.upload_file(filename='feed.xml') # upload RSS
     episode.delete_local_audio_file(filename)
     # need to add: delete the local feed as well after downloading
 except Exception as asdf:
     print(asdf)
     os.remove(filename)
-    input()
