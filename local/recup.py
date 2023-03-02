@@ -8,15 +8,24 @@ import xml.etree.ElementTree as ET
 import boto3
 import requests
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--record_length', type=str, required=True)
-args = parser.parse_args()
-record_length = args.record_length
+def get_record_length():
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--record_length', type=str, required=True)
+        args = parser.parse_args()
+        record_length = args.record_length
+        return record_length
 
 
 def delete_file(filename):
     s3 = boto3.resource('s3')
     s3.Object('wplnnewscast', f'rss/{filename}').delete()
+
+def upload_file(filename):
+    try:
+        s3_client = boto3.client('s3')
+        s3_client.upload_file(f'{filename}', "wplnnewscast", f'rss/{filename}')
+    except Exception as err:
+        print(f'error uploading to S3: {err}')
 
 
 def download_feed():
@@ -31,13 +40,13 @@ def download_feed():
 
 class Episode():
     def __init__(self) -> None:
-        pass
+        self.record_length = get_record_length()
 
     def title(self):
         timestamp = datetime.now().strftime('%A %d %b %I:%M %p')
         return timestamp
     
-    def filename(self):
+    def audio_filename(self):
         timestamp = datetime.now().strftime('%a_%d_%b_%I%M_%p.mp3')
         return timestamp
     
@@ -48,16 +57,9 @@ class Episode():
     def enclosure(self, filename):
         url = f'https://wplnnewscast.s3.us-east-2.amazonaws.com/rss/{filename}'
         return url
-    
-    def upload_file(self, filename):
-        try:
-            s3_client = boto3.client('s3')
-            s3_client.upload_file(f'{filename}', "wplnnewscast", f'rss/{filename}')
-        except Exception as err:
-            print(f'error uploading to S3: {err}')
 
     def record_and_save(self, filename):
-        subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t {record_length} {filename}')
+        subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t {self.record_length} {filename}')
 
     def add_new_episode(self, filename, episode_title):
         feed = download_feed()
@@ -87,21 +89,25 @@ class Episode():
         ET.indent(feed) # makes the XML real pretty like
         feed.write('feed.xml')
     
-    def delete_local_audio_file(self, filename):
-        os.remove(filename)
+    def delete_local_file(self, file_to_delete):
+        os.remove(file_to_delete)
 
 
-episode = Episode()
 try:
-    filename = episode.filename()
+    episode = Episode()
+    audio_filename = episode.audio_filename()
     episode_title = episode.title()
-    episode.record_and_save(filename)
+    episode.record_and_save(filename=audio_filename)
     download_feed()
-    episode.add_new_episode(filename=filename, episode_title=episode_title)
-    episode.upload_file(filename=filename) # upload audio
-    episode.upload_file(filename='feed.xml') # upload RSS
-    episode.delete_local_audio_file(filename)
+    episode.add_new_episode(filename=audio_filename, episode_title=episode_title)
+    upload_file(filename=audio_filename) # upload audio
+    upload_file(filename='feed.xml') # upload RSS
+    episode.delete_local_file(file_to_delete=audio_filename)
+    episode.delete_local_file(file_to_delete='feed.xml')
     # need to add: delete the local feed as well after downloading
 except Exception as asdf:
     print(asdf)
-    os.remove(filename)
+    os.remove(audio_filename)
+
+# download_feed()
+# upload_file(filename='feed.xml')
