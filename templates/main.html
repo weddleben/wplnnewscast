@@ -53,25 +53,32 @@
             {{ item[0] }}
         </h3>
 
-        <!-- <h4>
-            Published: {{ item[1] }}
-        </h4> -->
-
         <div>
-            <audio controls src="{{ item[2] }}" class="episode_download_link">
+            <audio controls src="{{ item[2] }}" class="episode_download_link" onplay="stop_audio()">
                 something
             </audio>
             <a href="{{ item[2] }}" class="episode_download_link">Download</a>
         </div>
         </div>
 
-        <!-- <hr> -->
 
         {% endfor %}
 
     </div>
 
     <br>
+
+    <script>
+        // THANK YOU 
+        document.addEventListener('play', function(e){  
+            var audios = document.getElementsByTagName('audio');  
+            for(var i = 0, len = audios.length; i < len;i++){  
+                if(audios[i] != e.target){  
+                    audios[i].pause();  
+                }  
+            }  
+        }, true);
+        </script>
 
     {% endblock %}
 
