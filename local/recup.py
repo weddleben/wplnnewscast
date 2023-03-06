@@ -41,14 +41,10 @@ def download_feed():
 class Episode():
     def __init__(self) -> None:
         self.record_length = get_record_length()
-
-    def title(self):
-        timestamp = datetime.now().strftime('%A %d %b %I:%M %p')
-        return timestamp
-    
-    def audio_filename(self):
-        timestamp = datetime.now().strftime('%a_%d_%b_%I%M_%p.mp3')
-        return timestamp
+        self.feed_file = download_feed()
+        self.audio_filename = datetime.now().strftime('%a_%d_%b_%I%M_%p.mp3')
+        self.guid = datetime.now().strftime('%a_%d_%b_%I%M_%p.mp3')
+        self.episode_title = datetime.now().strftime('%A %d %b %I:%M %p')
     
     def pub_date(self):
         pub_date = datetime.now().strftime('%a, %d %b %Y %H:%M:%S -6000')
@@ -57,13 +53,17 @@ class Episode():
     def enclosure(self, filename):
         url = f'https://wplnnewscast.s3.us-east-2.amazonaws.com/rss/{filename}'
         return url
+    
+    def size_in_bytes(self, filename):
+        size_in_bytes = os.path.getsize(filename)
+        size_in_bytes = str(size_in_bytes)
+        return size_in_bytes
 
     def record_and_save(self, filename):
         subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t {self.record_length} {filename}')
 
     def add_new_episode(self, filename, episode_title):
-        feed = download_feed()
-        feed = ET.parse(feed)
+        feed = ET.parse(self.feed_file)
         root = feed.getroot()
         root = root.find('channel')
 
@@ -81,33 +81,56 @@ class Episode():
 
         enclosure = ET.Element('enclosure')
         enclosure.set('url', Episode.enclosure(self, filename))
+        enclosure.set('length', Episode.size_in_bytes(self, filename))
+        enclosure.set('type', 'audio/mpeg')
         item.append(enclosure)
 
-        # insert the item element into the channel element, at index position 5
-        root.insert(5, item)
+        guid = ET.Element('guid')
+        guid.set('isPermaLink', 'false')
+        guid.text = self.guid
+        item.append(guid)
+
+        last_build_date = root.find('lastBuildDate')
+        last_build_date.text = Episode.pub_date(self)
+
+        # insert the item element into the channel element, at index position x
+        root.insert(6, item)
 
         ET.indent(feed) # makes the XML real pretty like
-        feed.write('feed.xml')
+        feed.write(self.feed_file)
+    
+    def remove_old_episodes(self):
+        feed = ET.parse(self.feed_file)
+        root = feed.getroot()
+        root = root.find('channel')
+        number_of_items = root.findall('item')
+        if len(number_of_items) > 50:
+            guid_of_item = number_of_items[-1]
+            guid = guid_of_item.find('guid').text
+            root.remove(guid_of_item)
+            delete_file(guid)
+            ET.indent(feed)
+            feed.write(self.feed_file)
+        else:
+            print('under 50')
     
     def delete_local_file(self, file_to_delete):
         os.remove(file_to_delete)
 
+def main():
+    try:
+        episode = Episode()
+        episode.record_and_save(filename=episode.audio_filename)
+        download_feed()
+        episode.add_new_episode(filename=episode.audio_filename, episode_title=episode.episode_title)
+        episode.remove_old_episodes()
+        upload_file(filename=episode.audio_filename) # upload audio
+        upload_file(filename=episode.feed_file) # upload RSS
+        episode.delete_local_file(file_to_delete=episode.audio_filename)
+        episode.delete_local_file(file_to_delete=episode.feed_file)
+    except Exception as asdf:
+        print(asdf)
+        os.remove(episode.audio_filename)
 
-try:
-    episode = Episode()
-    audio_filename = episode.audio_filename()
-    episode_title = episode.title()
-    episode.record_and_save(filename=audio_filename)
-    download_feed()
-    episode.add_new_episode(filename=audio_filename, episode_title=episode_title)
-    upload_file(filename=audio_filename) # upload audio
-    upload_file(filename='feed.xml') # upload RSS
-    episode.delete_local_file(file_to_delete=audio_filename)
-    episode.delete_local_file(file_to_delete='feed.xml')
-    # need to add: delete the local feed as well after downloading
-except Exception as asdf:
-    print(asdf)
-    os.remove(audio_filename)
-
-# download_feed()
-# upload_file(filename='feed.xml')
+if __name__ == '__main__':
+        main()
