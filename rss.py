@@ -21,14 +21,10 @@ def get_items():
         title = item.find('title')
         title = title.text
 
-        pubDate = item.find('pubDate')
-        pubDate = pubDate.text
-
         enclosure = item.find('enclosure').attrib
         enclosure = enclosure.get('url')
 
         episode.append(title)
-        episode.append(pubDate)
         episode.append(enclosure)
 
         episodes.append(episode)
