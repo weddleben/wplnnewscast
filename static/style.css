@@ -60,10 +60,10 @@ footer {
 }
 
 .episodes {
-    padding: 1%;
+    padding: 2%;
     display: flex;
     flex-flow:wrap;
-    gap: 15pt;
+    gap: 30pt;
     justify-content:center;
 }
 
