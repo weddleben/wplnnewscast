@@ -2,6 +2,7 @@ import argparse
 from datetime import datetime
 import os
 import subprocess
+import sys
 import time
 import xml.etree.ElementTree as ET
 
@@ -14,6 +15,23 @@ def get_record_length():
         args = parser.parse_args()
         record_length = args.record_length
         return record_length
+
+def prep_run():
+    '''
+    if it's been a while since we launched this script, it takes a few seconds for it to boot up and start running.
+    BUT we need fairly exact times to be able to capture the FM feed. So, a few minutes before we
+    need to run the script for real, we're calling it up to prep things. It seems to be crucial to also
+    call FFmpeg, as this may be the thing that is slow to launch.
+
+    Do a fake launch - with FFmpeg - save the file, then just delete it and exit Python.
+    '''
+    if get_record_length() == 'prep':
+        subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t 5 delete.mp3')
+        time.sleep(2)
+        os.remove('delete.mp3')
+        sys.exit()
+    else:
+        pass
 
 
 def delete_file(filename):
@@ -119,6 +137,7 @@ class Episode():
 
 def main():
     try:
+        prep_run()
         episode = Episode()
         episode.record_and_save(filename=episode.audio_filename)
         download_feed()
