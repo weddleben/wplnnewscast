@@ -27,7 +27,6 @@ def prep_run():
     '''
     if get_record_length() == 'prep':
         subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t 5 delete.mp3')
-        time.sleep(2)
         os.remove('delete.mp3')
         sys.exit()
     else:
