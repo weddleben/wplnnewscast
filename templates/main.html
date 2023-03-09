@@ -24,43 +24,84 @@
     <br>
 
     <div class="hero">
-    
+
         <h1>
             WPLN Newscasts
         </h1>
 
         <img src="{{url_for('static', filename='favicon.png')}}" class="hero_image">
-    
+
     </div>
 
     {% block content %}
 
     <br>
 
-        <div class="alert alert-success" role="alert" style="text-align: center; margin-left: 5%; margin-right: 5%;" id="banner">
-            {{banner}}
-        </div>
+    <div class="alert alert-success" role="alert" style="text-align: center; margin-left: 5%; margin-right: 5%;"
+        id="banner">
+        {{banner}}
+    </div>
 
-        <h3 class="episode_count">
-            <em>Showing {{length}} most recents newscasts</em>
-        </h3>
+    <div class="select_episodes">
+        <label for="bottom">Bottom of Hour</label>
+        <input type="checkbox" name="bottom" id="bottom" onclick="episodes_by_time('bottom_of_hour');">
+        <label for="top">Top of Hour</label>
+        <input type="checkbox" name="top" id="top" onclick="episodes_by_time('top_of_hour');">
+    </div>
+
+    <script>
+        function episodes_by_time(a) {
+            var episodes = document.getElementsByClassName(a);
+            for (var i = 0; i < episodes.length; i++) {
+                if (episodes[i].style.display === "none") {
+                    episodes[i].style.display = ""
+                } else {
+                    episodes[i].style.display = "none"
+                }
+            }
+            update_count()
+        }
+
+        function update_count() {
+            var something = document.getElementsByClassName("episode");
+            var number = 0
+            for (var i = 0; i < something.length; i++) {
+                if (window.getComputedStyle(something[i]).display != "none") {
+                    number++
+                }
+            }
+            document.getElementById("episode_count").innerHTML = `<em> showing ${number} newscasts`
+        }
+    </script>
+
+    <script>
+        if (document.getElementById('top').checked == false) {
+            document.getElementById('top').click();
+        }
+        if (document.getElementById('bottom').checked == false) {
+            document.getElementById('bottom').click();
+        }
+    </script>
+
+    <h3 class="episode_count" id="episode_count">
+    </h3>
     <br>
 
     <div class="episodes">
 
         {%for item in items %}
 
-        <div class="episode">
-        <h3>
-            {{ item[0] }}
-        </h3>
+        <div class="episode {{ item[2] }}">
+            <h3>
+                {{ item[0] }}
+            </h3>
 
-        <div>
-            <audio controls src="{{ item[1] }}" class="episode_download_link" onplay="stop_audio()">
-                something
-            </audio>
-            <a href="{{ item[1] }}" class="episode_download_link">Download</a>
-        </div>
+            <div>
+                <audio controls src="{{ item[1] }}" class="episode_download_link" onplay="stop_audio()">
+                    something
+                </audio>
+                <a href="{{ item[1] }}" class="episode_download_link" download>Download</a>
+            </div>
         </div>
 
 
@@ -72,15 +113,26 @@
 
     <script>
         // THANK YOU 
-        document.addEventListener('play', function(e){  
-            var audios = document.getElementsByTagName('audio');  
-            for(var i = 0, len = audios.length; i < len;i++){  
-                if(audios[i] != e.target){  
-                    audios[i].pause();  
-                }  
-            }  
+        document.addEventListener('play', function (e) {
+            var audios = document.getElementsByTagName('audio');
+            for (var i = 0, len = audios.length; i < len; i++) {
+                if (audios[i] != e.target) {
+                    audios[i].pause();
+                }
+            }
         }, true);
-        </script>
+    </script>
+
+    <script>
+                var something = document.getElementsByClassName("episode");
+        var number = 0
+        for (var i = 0; i < something.length; i++) {
+            if (window.getComputedStyle(something[i]).display != "none") {
+                number++
+            }
+        }
+        document.getElementById("episode_count").innerHTML = `<em> showing ${number} newscasts`
+    </script>
 
     {% endblock %}
 
@@ -92,14 +144,13 @@
         }
     </script>
 
-<h5 style="text-align: center;">
-    Please consider <a href="https://nashvillepublicradio.org/membership/">supporting Nashville Public Radio</a>.
+    <h5 style="text-align: center;">
+        Please consider <a href="https://nashvillepublicradio.org/membership/">supporting Nashville Public Radio</a>.
     </h5>
 
     <footer>
         <a href="{{ url_for('about') }}" class="footer_text">ABOUT</a>
     </footer>
-
 
 </body>
 
