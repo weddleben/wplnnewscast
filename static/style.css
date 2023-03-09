@@ -37,6 +37,12 @@ header {
         position: unset;
         padding-top: 2%;
     }
+    .select_episodes {
+        padding-bottom: 5%;
+    }
+    .episode_download_link {
+        margin-top: 5%;
+    }
 }
 
 footer {
@@ -74,13 +80,17 @@ footer {
     box-shadow: 4px 4px 6px;
     padding: 20px;
     flex: 1 1 auto;
-    
 }
 
 .episode_download_link {
     padding-right: 1%;
     display: inline-block;
     vertical-align: middle;
+    font-size: large;
+}
+
+.select_episodes {
+    text-align: center;
     font-size: large;
 }
 
