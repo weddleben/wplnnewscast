@@ -37,17 +37,111 @@
 
     <br>
 
-    <div class="alert alert-success" role="alert" style="text-align: center; margin-left: 5%; margin-right: 5%;"
+    <div class="alert alert-success banner" role="alert" style="text-align: center; margin-left: 5%; margin-right: 5%;"
         id="banner">
         {{banner}}
     </div>
 
-    <div class="select_episodes">
+    <!-- <div class="select_episodes">
         <label for="bottom">Bottom of Hour</label>
         <input type="checkbox" name="bottom" id="bottom" onclick="episodes_by_time('bottom_of_hour');">
         <label for="top">Top of Hour</label>
         <input type="checkbox" name="top" id="top" onclick="episodes_by_time('top_of_hour');">
+    </div> -->
+<div class="select_episodes">
+    <div class="select_episode">
+        <label for="Monday">Monday</label>
+        <input type="checkbox" name="day" id="Monday" onclick="episodes_by_time('Monday');">
     </div>
+    <div class="select_episode">
+        <label for="Tuesday">Tuesday</label>
+        <input type="checkbox" name="day" id="Tuesday" onclick="episodes_by_time('Tuesday');">
+    </div>
+    <div class="select_episode">
+        <label for="Wednesday">Wednesday</label>
+        <input type="checkbox" name="day" id="Wednesday" onclick="episodes_by_time('Wednesday');">
+    </div>
+    <div class="select_episode">
+        <label for="Thursday">Thursday</label>
+        <input type="checkbox" name="day" id="Thursday" onclick="episodes_by_time('Thursday');">
+    </div>
+    <div class="select_episode">
+        <label for="Friday">Friday</label>
+        <input type="checkbox" name="day" id="Friday" onclick="episodes_by_time('Friday');">
+    </div>
+</div>
+
+    <div class="filter_buttons">
+        <button type="button" class="btn btn-outline-primary" onclick="toggleOnOff()">TOGGLE</button>
+    </div>
+
+    <script>
+      function toggleOn() {
+  var checkboxes = document.getElementsByName("day");
+  // loop over them all
+  for (var i=0; i<checkboxes.length; i++) {
+     // And stick the checked ones onto an array...
+     if (checkboxes[i].checked) {
+        
+     } else {
+        checkboxes[i].click()
+     }
+  }
+}
+function toggleOff() {
+  var checkboxes = document.getElementsByName("day");
+  // loop over them all
+  for (var i=0; i<checkboxes.length; i++) {
+     // And stick the checked ones onto an array...
+     if (checkboxes[i].checked) {
+        checkboxes[i].click()
+     }
+  }
+}
+    </script>
+
+    <script>
+        function toggleOnOff() {
+            var checkboxes = document.getElementsByName("day");
+            var yes = 0
+            var no = 0
+            // loop over them all
+            for (var i = 0; i < checkboxes.length; i++) {
+                // And stick the checked ones onto an array...
+                if (checkboxes[i].checked) {
+                    yes++
+                } else {
+                    no++
+                }
+            }
+            if (yes > no) {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].checked) {
+                        // do nothing
+                    } else {
+                        checkboxes[i].click()
+                    }
+                }
+            }
+            if (yes < no) {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].checked) {
+                        checkboxes[i].click()
+                    }
+                }
+            }
+            if (yes == checkboxes.length) {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].click()
+                }
+            } else {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].click()
+                }
+            }
+        }
+
+    </script>
 
     <script>
         function episodes_by_time(a) {
@@ -75,29 +169,44 @@
     </script>
 
     <script>
-        if (document.getElementById('top').checked == false) {
-            document.getElementById('top').click();
+
+        if (document.getElementById('Monday').checked == false) {
+            document.getElementById('Monday').click();
         }
-        if (document.getElementById('bottom').checked == false) {
-            document.getElementById('bottom').click();
+        if (document.getElementById('Tuesday').checked == false) {
+            document.getElementById('Tuesday').click();
         }
+        if (document.getElementById('Wednesday').checked == false) {
+            document.getElementById('Wednesday').click();
+        }
+        if (document.getElementById('Thursday').checked == false) {
+            document.getElementById('Thursday').click();
+        }
+        if (document.getElementById('Friday').checked == false) {
+            document.getElementById('Friday').click();
+        }
+        // if (document.getElementById('top').checked == false) {
+        //     document.getElementById('top').click();
+        // }
+        // if (document.getElementById('bottom').checked == false) {
+        //     document.getElementById('bottom').click();
+        // }
     </script>
 
-    <h3 class="episode_count" id="episode_count">
-    </h3>
+    <h3 class="episode_count" id="episode_count"></h3>
     <br>
 
     <div class="episodes">
 
         {%for item in items %}
 
-        <div class="episode {{ item[2] }}">
+        <div class="episode {{ item[2] }} {{ item[3] }}">
             <h3>
                 {{ item[0] }}
             </h3>
 
             <div>
-                <audio controls src="{{ item[1] }}" class="episode_download_link" onplay="stop_audio()">
+                <audio controls src="{{ item[1] }}" class="episode_download_link">
                     something
                 </audio>
                 <a href="{{ item[1] }}" class="episode_download_link" download>Download</a>
@@ -134,6 +243,16 @@
         document.getElementById("episode_count").innerHTML = `<em> showing ${number} newscasts`
     </script>
 
+<script>
+    // THANK YOU 
+    function stop_all() {
+        var audios = document.getElementsByTagName('audio');
+        for (var i = 0, len = audios.length; i < len; i++) {
+                audios[i].pause();
+        }
+    };
+</script>
+
     {% endblock %}
 
     <script>
@@ -144,12 +263,11 @@
         }
     </script>
 
-    <h5 style="text-align: center;">
-        Please consider <a href="https://nashvillepublicradio.org/membership/">supporting Nashville Public Radio</a>.
-    </h5>
-
     <footer>
-        <a href="{{ url_for('about') }}" class="footer_text">ABOUT</a>
+        <h5 class="footer_text">
+            Please consider <a href="https://nashvillepublicradio.org/membership/" style="text-decoration: none;">supporting Nashville Public Radio</a>.
+        </h5>
+        <a href="{{ url_for('about') }}" class="footer_links">ABOUT</a>
     </footer>
 
 </body>
