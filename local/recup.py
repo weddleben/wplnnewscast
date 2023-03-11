@@ -25,12 +25,10 @@ def prep_run():
 
     Do a fake launch - with FFmpeg - save the file, then just delete it and exit Python.
     '''
-    if get_record_length() == 'prep':
-        subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t 5 delete.mp3')
-        os.remove('delete.mp3')
-        sys.exit()
-    else:
-        pass
+    subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t 5 delete.mp3')
+    os.remove('delete.mp3')
+    sys.exit()
+
 
 
 def delete_file(filename):
@@ -77,6 +75,8 @@ class Episode():
         return size_in_bytes
 
     def record_and_save(self, filename):
+        if self.record_length == 'prep':
+            prep_run()
         subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t {self.record_length} {filename}')
 
     def add_new_episode(self, filename, episode_title):
@@ -121,7 +121,7 @@ class Episode():
         root = feed.getroot()
         root = root.find('channel')
         number_of_items = root.findall('item')
-        if len(number_of_items) > 50:
+        if len(number_of_items) > 65:
             guid_of_item = number_of_items[-1]
             guid = guid_of_item.find('guid').text
             root.remove(guid_of_item)
@@ -136,10 +136,8 @@ class Episode():
 
 def main():
     try:
-        prep_run()
         episode = Episode()
         episode.record_and_save(filename=episode.audio_filename)
-        download_feed()
         episode.add_new_episode(filename=episode.audio_filename, episode_title=episode.episode_title)
         episode.remove_old_episodes()
         upload_file(filename=episode.audio_filename) # upload audio
