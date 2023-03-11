@@ -35,6 +35,17 @@ def get_items():
         bottom_of_hour = '33'
         if bottom_of_hour in title:
             episode.append('bottom_of_hour')
+        
+        if 'Monday' in title:
+            episode.append('Monday')
+        if 'Tuesday' in title:
+            episode.append('Tuesday')   
+        if 'Wednesday' in title:
+            episode.append('Wednesday')
+        if 'Thursday' in title:
+            episode.append('Thursday')
+        if 'Friday' in title:
+            episode.append('Friday')
 
         episodes.append(episode)
 
