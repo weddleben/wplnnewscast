@@ -23,6 +23,10 @@ def about():
 def podcast():
     return render_template('podcast.html')
 
+@application.route('/podcastrss/')
+def podcastrss():
+    return redirect('https://wplnnewscast.s3.us-east-2.amazonaws.com/rss/feed.xml')
+
 @application.route('/admin/', methods=['GET', 'POST'])
 def admin():
     if request.method == 'POST':
