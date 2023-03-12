@@ -34,7 +34,8 @@
     </div>
 
     {% block content %}
-
+    
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
     <br>
 
     <div class="alert alert-success banner" role="alert" style="text-align: center; margin-left: 5%; margin-right: 5%;"
@@ -98,58 +99,6 @@
         <button type="button" class="btn btn-outline-primary" onclick="toggleOnOff()">TOGGLE</button>
     </div>
 
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
-
-    <script>
-        function episodes_by_time(a) {
-            var episodes = document.getElementsByClassName(a);
-            for (var i = 0; i < episodes.length; i++) {
-                if (episodes[i].style.display === "none") {
-                    episodes[i].style.display = ""
-                } else {
-                    episodes[i].style.display = "none"
-                }
-            }
-            update_count()
-        }
-
-        function update_count() {
-            var something = document.getElementsByClassName("episode");
-            var number = 0
-            for (var i = 0; i < something.length; i++) {
-                if (window.getComputedStyle(something[i]).display != "none") {
-                    number++
-                }
-            }
-            document.getElementById("episode_count").innerHTML = `<em> showing ${number} newscasts`
-        }
-    </script>
-
-    <script>
-
-        if (document.getElementById('Monday').checked == false) {
-            document.getElementById('Monday').click();
-        }
-        if (document.getElementById('Tuesday').checked == false) {
-            document.getElementById('Tuesday').click();
-        }
-        if (document.getElementById('Wednesday').checked == false) {
-            document.getElementById('Wednesday').click();
-        }
-        if (document.getElementById('Thursday').checked == false) {
-            document.getElementById('Thursday').click();
-        }
-        if (document.getElementById('Friday').checked == false) {
-            document.getElementById('Friday').click();
-        }
-        // if (document.getElementById('top').checked == false) {
-        //     document.getElementById('top').click();
-        // }
-        // if (document.getElementById('bottom').checked == false) {
-        //     document.getElementById('bottom').click();
-        // }
-    </script>
-
     <h3 class="episode_count" id="episode_count"></h3>
     <br>
 
@@ -189,16 +138,8 @@
         }, true);
     </script>
 
-    <script>
-                var something = document.getElementsByClassName("episode");
-        var number = 0
-        for (var i = 0; i < something.length; i++) {
-            if (window.getComputedStyle(something[i]).display != "none") {
-                number++
-            }
-        }
-        document.getElementById("episode_count").innerHTML = `<em> showing ${number} newscasts`
-    </script>
+    <!-- call when the page first loads -->
+    <script>update_count()</script>
 
 <script>
     // THANK YOU 

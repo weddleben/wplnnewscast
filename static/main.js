@@ -1,10 +1,12 @@
+/*
+controls the TOGGLE button. called when button is clicked
+*/
 function toggleOnOff() {
+    // this is so ugly and i'm sorry
     var checkboxes = document.getElementsByName("day");
     var yes = 0
     var no = 0
-    // loop over them all
     for (var i = 0; i < checkboxes.length; i++) {
-        // And stick the checked ones onto an array...
         if (checkboxes[i].checked) {
             yes++
         } else {
@@ -38,4 +40,33 @@ function toggleOnOff() {
             checkboxes[i].click()
         }
     }
+}
+/*
+toggle episodes on/off. called by the toggle button, or the individual checkboxes.
+*/
+function episodes_by_time(a) {
+    var episodes = document.getElementsByClassName(a);
+    for (var i = 0; i < episodes.length; i++) {
+        if (episodes[i].style.display === "none") {
+            episodes[i].style.display = ""
+        } else {
+            episodes[i].style.display = "none"
+        }
+    }
+    update_count()
+}
+
+/*
+update episode count at top of page. called when episodes are toggled on/off
+*/
+
+function update_count() {
+    var something = document.getElementsByClassName("episode");
+    var number = 0
+    for (var i = 0; i < something.length; i++) {
+        if (window.getComputedStyle(something[i]).display != "none") {
+            number++
+        }
+    }
+    document.getElementById("episode_count").innerHTML = `<em> showing ${number} newscasts`
 }
