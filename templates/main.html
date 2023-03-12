@@ -48,7 +48,7 @@
         <label for="top">Top of Hour</label>
         <input type="checkbox" name="top" id="top" onclick="episodes_by_time('top_of_hour');">
     </div> -->
-<div class="select_episodes">
+<!-- <div class="select_episodes">
     <div class="select_episode">
         <label for="Monday">Monday</label>
         <input type="checkbox" name="day" id="Monday" onclick="episodes_by_time('Monday');">
@@ -69,36 +69,34 @@
         <label for="Friday">Friday</label>
         <input type="checkbox" name="day" id="Friday" onclick="episodes_by_time('Friday');">
     </div>
+</div> -->
+
+<div class="select_episodes">
+    <div class="select_episode">    
+        <input type="checkbox" class="btn-check" id="Monday" name="day" onclick="episodes_by_time('Monday');"/>
+        <label class="btn btn-primary" for="Monday">Monday</label>
+    </div>
+    <div class="select_episode">
+        <input type="checkbox" class="btn-check" id="Tuesday" name="day" autocomplete="off" onclick="episodes_by_time('Tuesday');"/>
+        <label class="btn btn-primary" for="Tuesday">Tuesday</label>
+    </div>
+    <div class="select_episode">
+        <input type="checkbox" class="btn-check" id="Wednesday" name="day" autocomplete="off" onclick="episodes_by_time('Wednesday');"/>
+        <label class="btn btn-primary" for="Wednesday">Wednesday</label>
+    </div>
+    <div class="select_episode">
+        <input type="checkbox" class="btn-check" id="Thursday" name="day" autocomplete="off" onclick="episodes_by_time('Thursday');"/>
+        <label class="btn btn-primary" for="Thursday">Thursday</label>
+    </div>
+    <div class="select_episode">
+        <input type="checkbox" class="btn-check" id="Friday" name="day" autocomplete="off" onclick="episodes_by_time('Friday');"/>
+        <label class="btn btn-primary" for="Friday">Friday</label>
+    </div>
 </div>
 
     <div class="filter_buttons">
         <button type="button" class="btn btn-outline-primary" onclick="toggleOnOff()">TOGGLE</button>
     </div>
-
-    <script>
-      function toggleOn() {
-  var checkboxes = document.getElementsByName("day");
-  // loop over them all
-  for (var i=0; i<checkboxes.length; i++) {
-     // And stick the checked ones onto an array...
-     if (checkboxes[i].checked) {
-        
-     } else {
-        checkboxes[i].click()
-     }
-  }
-}
-function toggleOff() {
-  var checkboxes = document.getElementsByName("day");
-  // loop over them all
-  for (var i=0; i<checkboxes.length; i++) {
-     // And stick the checked ones onto an array...
-     if (checkboxes[i].checked) {
-        checkboxes[i].click()
-     }
-  }
-}
-    </script>
 
     <script>
         function toggleOnOff() {
@@ -120,6 +118,7 @@ function toggleOff() {
                         // do nothing
                     } else {
                         checkboxes[i].click()
+                        stop_all()
                     }
                 }
             }
@@ -133,6 +132,7 @@ function toggleOff() {
             if (yes == checkboxes.length) {
                 for (var i = 0; i < checkboxes.length; i++) {
                     checkboxes[i].click()
+                    stop_all();
                 }
             } else {
                 for (var i = 0; i < checkboxes.length; i++) {
