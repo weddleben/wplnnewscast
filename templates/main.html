@@ -18,6 +18,7 @@
     <header>
         <a href="{{ url_for('main') }}" class="header_text">HOME</a>
         <a href="{{ url_for('podcast') }}" class="header_text">PODCAST</a>
+        <button class="btn btn-danger btn-sm" style="float: right; display: none;" id="stop_button" onclick="stop_all(); hide_stop()">STOP</button>
     </header>
 
     <br>
@@ -34,7 +35,7 @@
     </div>
 
     {% block content %}
-    
+
     <script src="{{ url_for('static', filename='main.js') }}"></script>
     <br>
 
@@ -133,23 +134,17 @@
             for (var i = 0, len = audios.length; i < len; i++) {
                 if (audios[i] != e.target) {
                     audios[i].pause();
+                    reveal_stop();
                 }
             }
         }, true);
+
+        setInterval
+
     </script>
 
     <!-- call when the page first loads -->
     <script>update_count()</script>
-
-<script>
-    // THANK YOU 
-    function stop_all() {
-        var audios = document.getElementsByTagName('audio');
-        for (var i = 0, len = audios.length; i < len; i++) {
-                audios[i].pause();
-        }
-    };
-</script>
 
     {% endblock %}
 

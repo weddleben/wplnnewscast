@@ -19,7 +19,7 @@ function toggleOnOff() {
                 // do nothing
             } else {
                 checkboxes[i].click()
-                stop_all()
+                // stop_all()
             }
         }
     }
@@ -33,11 +33,12 @@ function toggleOnOff() {
     if (yes == checkboxes.length) {
         for (var i = 0; i < checkboxes.length; i++) {
             checkboxes[i].click()
-            stop_all();
+            // stop_all();
         }
     } else {
         for (var i = 0; i < checkboxes.length; i++) {
             checkboxes[i].click()
+            // stop_all()
         }
     }
 }
@@ -69,4 +70,24 @@ function update_count() {
         }
     }
     document.getElementById("episode_count").innerHTML = `<em> showing ${number} newscasts`
+}
+
+ /*
+ stop all audio players
+ */ 
+ function stop_all() {
+    var audios = document.getElementsByTagName('audio');
+    for (var i = 0, len = audios.length; i < len; i++) {
+            audios[i].pause();
+    }
+}
+
+function reveal_stop() {
+    stop_button = document.getElementById("stop_button");
+    stop_button.style.display = "block"
+}
+
+function hide_stop() {
+    stop_button = document.getElementById("stop_button");
+    stop_button.style.display = "none"
 }
