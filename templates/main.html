@@ -113,7 +113,7 @@
             </h3>
 
             <div>
-                <audio controls src="{{ item[1] }}" class="episode_download_link">
+                <audio controls src="{{ item[1] }}" class="episode_download_link" onended="hide_stop()">
                     something
                 </audio>
                 <a href="{{ item[1] }}" class="episode_download_link" download>Download</a>
