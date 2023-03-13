@@ -3,7 +3,6 @@ from datetime import datetime
 import os
 import subprocess
 import sys
-import time
 import xml.etree.ElementTree as ET
 
 import boto3
@@ -27,6 +26,7 @@ def prep_run():
     '''
     subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t 5 delete.mp3')
     os.remove('delete.mp3')
+    os.remove('feed.xml')
     sys.exit()
 
 
@@ -62,7 +62,7 @@ class Episode():
         self.episode_title = datetime.now().strftime('%A %d %b %I:%M %p')
     
     def pub_date(self):
-        pub_date = datetime.now().strftime('%a, %d %b %Y %H:%M:%S -6000')
+        pub_date = datetime.now().strftime('%a, %d %b %Y %H:%M:%S -5000')
         return pub_date
     
     def enclosure(self, filename):
