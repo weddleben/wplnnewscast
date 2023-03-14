@@ -28,11 +28,11 @@ def get_items():
         episode.append(enclosure)
 
         # separate bottom & top of hour
-        top_of_hour = '04'
+        top_of_hour = ':04'
         if top_of_hour in title:
             episode.append('top_of_hour')
         
-        bottom_of_hour = '33'
+        bottom_of_hour = ':33'
         if bottom_of_hour in title:
             episode.append('bottom_of_hour')
         
