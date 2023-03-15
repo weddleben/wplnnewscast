@@ -98,7 +98,7 @@ footer {
     /* border-color: rgba(145, 87, 87, 0.389); */
     box-shadow: 4px 4px 6px;
     padding: 20px;
-    flex: 1 1 auto;
+    flex: 1 1 auto;    
 }
 
 .episode_download_link {
@@ -133,3 +133,12 @@ hr {
     border-width: 5pt;
     margin-right: 1%; 
   }
+
+/* for the toggle buttons up top */
+.to_fade1 {
+opacity: 0;
+transition: opacity 1s;
+}
+.to_fade2 {
+opacity: 1;
+}

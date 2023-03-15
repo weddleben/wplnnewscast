@@ -39,10 +39,12 @@
     <script src="{{ url_for('static', filename='main.js') }}"></script>
     <br>
 
+    {% if banner %}
     <div class="alert alert-success banner" role="alert" style="text-align: center; margin-left: 5%; margin-right: 5%;"
         id="banner">
         {{banner}}
     </div>
+    {% endif %}
 
     <!-- <div class="select_episodes">
         <label for="bottom">Bottom of Hour</label>
@@ -73,7 +75,9 @@
     </div>
 </div> -->
 
-<div class="select_episodes">
+<div class="to_fade1" id="to_fade">
+
+<div class="select_episodes" id="select_episodes">
     <div class="select_episode">    
         <input type="checkbox" class="btn-check" id="Monday" name="day" onclick="episodes_by_time('Monday');"/>
         <label class="btn btn-primary" for="Monday">Monday</label>
@@ -99,6 +103,8 @@
     <div class="filter_buttons">
         <button type="button" class="btn btn-outline-primary" onclick="toggleOnOff()">TOGGLE</button>
     </div>
+
+</div>
 
     <h3 class="episode_count" id="episode_count"></h3>
     <br>
@@ -162,6 +168,13 @@
         </h5>
         <a href="{{ url_for('about') }}" class="footer_links">ABOUT</a>
     </footer>
+
+    <script>
+        function fade(){
+            document.getElementById('to_fade').classList.add('to_fade2');
+        }
+        onload(fade())
+    </script>
 
 </body>
 
