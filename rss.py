@@ -52,10 +52,10 @@ def get_items():
     return episodes
 
 def check_banner():
-    try:
-        banner = open('message.txt', 'r')
-        banner = banner.read()
-    except:
-        banner = 'none'
+    banner = open('message.txt', 'r')
+    banner = banner.read()
+
+    if banner == '':
+        return False
 
     return banner
