@@ -98,7 +98,6 @@
         <input type="checkbox" class="btn-check" id="Friday" name="day" autocomplete="off" onclick="episodes_by_time('Friday');"/>
         <label class="btn btn-primary" for="Friday">Friday</label>
     </div>
-</div>
 
     <div class="filter_buttons">
         <button type="button" class="btn btn-outline-primary" onclick="toggleOnOff()">TOGGLE</button>
@@ -130,6 +129,8 @@
         {% endfor %}
 
     </div>
+
+</div>
 
     <br>
 
@@ -171,7 +172,10 @@
 
     <script>
         function fade(){
-            document.getElementById('to_fade').classList.add('to_fade2');
+            var to_fade = document.getElementsByClassName('to_fade1');
+            for (var i = 0; i < to_fade.length; i++) {
+                to_fade[i].classList.add('to_fade2')
+            }
         }
         onload(fade())
     </script>
