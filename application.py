@@ -53,4 +53,4 @@ def internal_error(e):
     return render_template("broken.html"), 500
 
 if __name__ == "__main__":
-    application.run(debug=True, host='0.0.0.0', port=2122)
+    application.run()
