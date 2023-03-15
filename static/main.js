@@ -57,6 +57,7 @@ function episodes_by_time(a) {
     update_count()
 }
 
+
 /*
 update episode count at top of page. called when episodes are toggled on/off
 */
@@ -70,6 +71,15 @@ function update_count() {
         }
     }
     document.getElementById("episode_count").innerHTML = `<em> showing ${number} newscasts`
+}
+
+// fade in elements on start
+
+function fade(){
+    var to_fade = document.getElementsByClassName('to_fade1');
+    for (var i = 0; i < to_fade.length; i++) {
+        to_fade[i].classList.add('to_fade2')
+    }
 }
 
  /*

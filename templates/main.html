@@ -3,6 +3,17 @@
 <html lang="en">
 
 <head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VRD2RDME2Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-VRD2RDME2Y');
+    </script>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WPLN Newscasts</title>
@@ -121,7 +132,7 @@
                 <audio controls src="{{ item[1] }}" class="episode_download_link" onended="hide_stop()">
                     something
                 </audio>
-                <a href="{{ item[1] }}" class="episode_download_link" download>Download</a>
+                <a href="{{ item[1] }}" class="episode_download_link link_mobile" download>Download</a>
             </div>
         </div>
 
@@ -151,17 +162,12 @@
     </script>
 
     <!-- call when the page first loads -->
-    <script>update_count()</script>
+    <script>
+    update_count()
+    fade()
+    </script>
 
     {% endblock %}
-
-    <script>
-        const banner = document.getElementById('banner').innerText
-        console.log(banner)
-        if (banner === "") {
-            document.getElementById('banner').remove()
-        }
-    </script>
 
     <footer>
         <h5 class="footer_text">
@@ -169,16 +175,6 @@
         </h5>
         <a href="{{ url_for('about') }}" class="footer_links">ABOUT</a>
     </footer>
-
-    <script>
-        function fade(){
-            var to_fade = document.getElementsByClassName('to_fade1');
-            for (var i = 0; i < to_fade.length; i++) {
-                to_fade[i].classList.add('to_fade2')
-            }
-        }
-        onload(fade())
-    </script>
 
 </body>
 

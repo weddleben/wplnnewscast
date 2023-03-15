@@ -1,5 +1,6 @@
 html, body {
     background-color:rgb(217, 217, 217);
+    /* font-family:monospace */
 }
 
 header {
@@ -45,7 +46,7 @@ header {
     .select_episodes {
         padding-bottom: 5%;
     }
-    .episode_download_link {
+    .link_mobile {
         margin-top: 5%;
     }
     .banner {
