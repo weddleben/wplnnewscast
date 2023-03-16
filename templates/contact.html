@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div style="padding: 2%;" class="row justify-content-center">
+<h2>CONTACT US</h2>
+<br>
+
+<div style="padding-bottom: 15pt;"></div>
+
+<form class="contact_form needs-validation" novalidate method=post enctype=multipart/form-data>
+    <div class="form-group">
+      <label for="email_address">Email Address</label>
+      <input type="email" class="form-control" id="email_address" name="email_address" aria-describedby="emailHelp" placeholder="only if you want to hear from us">
+      <div class="invalid-feedback">
+        that doesn't look like an email address
+      </div>
+    </div>
+    <br>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Message</label>
+      <textarea class="form-control" id="email_message" name="email_message" placeholder="What's up?" required></textarea>
+      <div class="invalid-feedback">
+        what do you want to tell us?
+      </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Send</button>
+  </form>
+
+</div>
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
+
+
+{% endblock %}

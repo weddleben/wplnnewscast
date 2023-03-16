@@ -143,3 +143,8 @@ transition: opacity 1s;
 .to_fade2 {
 opacity: 1;
 }
+
+.contact_form {
+    padding-right: 25%;
+    padding-left: 25%;
+}
