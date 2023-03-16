@@ -16,5 +16,3 @@ def send_email(body):
     smtp_server.login(sender, password)
     smtp_server.sendmail(sender, recipients, msg.as_string())
     smtp_server.quit()
-
-send_email(body='hmmmmmmmmmmmmmmm does this work? cannot quite tell')
