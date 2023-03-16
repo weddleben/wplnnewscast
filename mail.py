@@ -4,7 +4,6 @@ import smtplib
 
 def send_email(body):
     sender = "audiobatonmusic@gmail.com"
-    # password = "rorywasszzghjvlp"
     recipients = ["fertilityhollis88@gmail.com"]
     password = os.environ['email_pass']
     
