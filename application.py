@@ -67,7 +67,8 @@ def page_not_found(e):
 
 @application.errorhandler(500)
 def internal_error(e):
+    send_email(body='someone hit a 500 error')
     return render_template("broken.html"), 500
 
 if __name__ == "__main__":
-    application.run(debug=True, host='0.0.0.0', port=2122)
+    application.run()
