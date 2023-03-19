@@ -53,7 +53,7 @@ def contact():
 
         email_message = request.form['email_message']
 
-        to_send = f'Email Address: {email_address}\nEmail Message: {email_message}'
+        to_send = f'Email Address: {email_address}\nEmail Message:\n{email_message}'
         send_email(body=to_send)
 
         return render_template('post_contact.html', emoji='&#128077;')
@@ -70,4 +70,4 @@ def internal_error(e):
     return render_template("broken.html"), 500
 
 if __name__ == "__main__":
-    application.run()
+    application.run(debug=True, host='0.0.0.0', port=2122)
