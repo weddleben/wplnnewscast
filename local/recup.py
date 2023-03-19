@@ -77,7 +77,7 @@ class Episode():
     def record_and_save(self, filename):
         if self.record_length == 'prep':
             prep_run()
-        subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -t {self.record_length} {filename}')
+        subprocess.run(f'ffmpeg -f dshow -i audio="Line In (Realtek(R) Audio)" -ac 1 -t {self.record_length} {filename}')
 
     def add_new_episode(self, filename, episode_title):
         feed = ET.parse(self.feed_file)
