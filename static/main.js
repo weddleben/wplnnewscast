@@ -1,3 +1,14 @@
+// THANK YOU 
+document.addEventListener('play', function (e) {
+var audios = document.getElementsByTagName('audio');
+for (var i = 0, len = audios.length; i < len; i++) {
+    if (audios[i] != e.target) {
+        audios[i].pause();
+        reveal_stop();
+    }
+}
+}, true);
+
 /*
 controls the TOGGLE button. called when button is clicked
 */
@@ -100,4 +111,14 @@ function reveal_stop() {
 function hide_stop() {
     stop_button = document.getElementById("stop_button");
     stop_button.style.display = "none"
+}
+
+function reveal_filter(){
+    var filters = document.getElementsByClassName("select_episode");
+    for (var i = 0; i < filters.length; i++) {
+    filters[i].style.display = "inline-block"
+    }
+    var toggle_button = document.getElementById("filter_toggle")
+    toggle_button.innerText = "TOGGLE"
+    toggle_button.className = "btn btn-outline-primary"
 }

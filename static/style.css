@@ -116,7 +116,7 @@ footer {
 
 .select_episode {
     margin: 10px;
-    display: inline-block;
+    display: none;
 }
 
 .filter_buttons {

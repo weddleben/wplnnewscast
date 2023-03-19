@@ -57,40 +57,11 @@
     </div>
     {% endif %}
 
-    <!-- <div class="select_episodes">
-        <label for="bottom">Bottom of Hour</label>
-        <input type="checkbox" name="bottom" id="bottom" onclick="episodes_by_time('bottom_of_hour');">
-        <label for="top">Top of Hour</label>
-        <input type="checkbox" name="top" id="top" onclick="episodes_by_time('top_of_hour');">
-    </div> -->
-<!-- <div class="select_episodes">
-    <div class="select_episode">
-        <label for="Monday">Monday</label>
-        <input type="checkbox" name="day" id="Monday" onclick="episodes_by_time('Monday');">
-    </div>
-    <div class="select_episode">
-        <label for="Tuesday">Tuesday</label>
-        <input type="checkbox" name="day" id="Tuesday" onclick="episodes_by_time('Tuesday');">
-    </div>
-    <div class="select_episode">
-        <label for="Wednesday">Wednesday</label>
-        <input type="checkbox" name="day" id="Wednesday" onclick="episodes_by_time('Wednesday');">
-    </div>
-    <div class="select_episode">
-        <label for="Thursday">Thursday</label>
-        <input type="checkbox" name="day" id="Thursday" onclick="episodes_by_time('Thursday');">
-    </div>
-    <div class="select_episode">
-        <label for="Friday">Friday</label>
-        <input type="checkbox" name="day" id="Friday" onclick="episodes_by_time('Friday');">
-    </div>
-</div> -->
-
 <div class="to_fade1" id="to_fade">
 
 <div class="select_episodes" id="select_episodes">
     <div class="select_episode">    
-        <input type="checkbox" class="btn-check" id="Monday" name="day" onclick="episodes_by_time('Monday');"/>
+        <input type="checkbox" class="btn-check" id="Monday" name="day" autocomplete="off" onclick="episodes_by_time('Monday');"/>
         <label class="btn btn-primary" for="Monday">Monday</label>
     </div>
     <div class="select_episode">
@@ -111,7 +82,7 @@
     </div>
 
     <div class="filter_buttons">
-        <button type="button" class="btn btn-outline-primary" onclick="toggleOnOff()">TOGGLE</button>
+        <button type="button" class="btn btn-primary" id="filter_toggle" onclick="toggleOnOff(); reveal_filter()">FILTER</button>
     </div>
 
 </div>
@@ -144,19 +115,6 @@
 </div>
 
     <br>
-
-    <script>
-        // THANK YOU 
-        document.addEventListener('play', function (e) {
-            var audios = document.getElementsByTagName('audio');
-            for (var i = 0, len = audios.length; i < len; i++) {
-                if (audios[i] != e.target) {
-                    audios[i].pause();
-                    reveal_stop();
-                }
-            }
-        }, true);
-    </script>
 
     <!-- call when the page first loads -->
     <script>
