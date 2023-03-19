@@ -3,8 +3,8 @@ import os
 import smtplib
 
 def send_email(body):
-    sender = "audiobatonmusic@gmail.com"
-    recipients = ["fertilityhollis88@gmail.com"]
+    sender = "wplnnewscast@gmail.com"
+    recipients = ["wplnnewscast@gmail.com"]
     password = os.environ['email_pass']
     
     msg = MIMEText(body)
