@@ -113,6 +113,21 @@ function hide_stop() {
     stop_button.style.display = "none"
 }
 
+function check_if_playing() {
+    var audio = document.getElementsByTagName('audio');
+    var audio_players_count = audio.length;
+    var total_count = 0
+    for (var i = 0; i < audio.length; i++) {
+
+    if (audio[i].paused){
+        total_count++
+    }
+        }
+    if (total_count == audio_players_count) {
+        hide_stop()
+    }
+}
+
 function reveal_filter(){
     var filters = document.getElementsByClassName("select_episode");
     for (var i = 0; i < filters.length; i++) {
