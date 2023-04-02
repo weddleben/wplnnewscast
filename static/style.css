@@ -39,7 +39,7 @@ header {
 
 @media screen and (max-width: 900px) {
     .hero_image {
-        width: 150px;
+        width: 125px;
         position: unset;
         padding-top: 2%;
     }
