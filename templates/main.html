@@ -109,7 +109,7 @@ __  _  __|  |__  _____   _/  |_  _____   _______   ____    ___.__.  ____   __ __
             </h3>
 
             <div>
-                <audio controls src="{{ item[1] }}" class="episode_download_link" onended="hide_stop()" onpause="check_if_playing()">
+                <audio controls src="{{ item[1] }}" preload="none" class="episode_download_link" onended="hide_stop()" onpause="check_if_playing()">
                     something
                 </audio>
                 <a href="{{ item[1] }}" class="episode_download_link link_mobile" download>Download</a>
