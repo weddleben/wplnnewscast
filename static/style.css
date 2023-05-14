@@ -17,13 +17,13 @@ header {
     font-size: 15pt;
     
 }
-.header_text:hover {
-    color:brown;
-}
 
 .hero {
     text-align: center;
     
+}
+a:hover {
+    color: brown;
 }
 
 .banner {
@@ -69,10 +69,6 @@ footer {
     float: right;
     text-decoration: none;
     font-size: 15pt;
-}
-
-.footer_links:hover {
-    color:brown;
 }
 
 .footer_text {
