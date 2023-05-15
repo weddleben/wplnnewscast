@@ -68,6 +68,11 @@ def test_admin_post1(client):
     assert resp.status_code == 200
 
 def test_admin_post2(client):
+    '''if incorrect username is given, page should return 200 + html'''
+    resp = client.post('/admin/', data={"user": "bad_username","message": "some message",})
+    assert resp.status_code == 200
+
+def test_admin_post3(client):
     '''should fail if form data is missing'''
     resp = client.post('/admin/')
     assert resp.status_code == 400
