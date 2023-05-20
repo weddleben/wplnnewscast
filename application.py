@@ -63,6 +63,10 @@ def contact():
 def page_not_found(e):
     return render_template('404.html'), 404
 
+@application.errorhandler(405)
+def page_not_found(e):
+    return "you're no good, you're no good", 405
+
 @application.errorhandler(500)
 def internal_error(e):
     return render_template("broken.html"), 500
