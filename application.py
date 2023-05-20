@@ -1,7 +1,9 @@
 from flask import Flask, request, redirect, render_template
 
 from rss import get_items, check_banner
-from mail import send_email
+from mail import Mail
+
+send_email = Mail().send_email
 
 application = Flask(__name__)
 
