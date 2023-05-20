@@ -1,13 +1,11 @@
-import os
-
-from flask import Flask, flash, request, redirect, url_for, render_template, send_from_directory, Request
+from flask import Flask, request, redirect, render_template
 
 from rss import get_items, check_banner
 from mail import send_email
 
 application = Flask(__name__)
 
-@application.route('/', methods=['GET', 'POST'])
+@application.route('/', methods=['GET'])
 def main():
     items = get_items()
     length = len(items)
