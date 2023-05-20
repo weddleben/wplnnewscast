@@ -3,12 +3,11 @@ import pytest
 from application import application
 
 
-@pytest.fixture
+@pytest.fixture()
 def client():
+    client = application.test_client()
     application.config.update({'TESTING': True})
-
-    with application.test_client() as client:
-        yield client
+    yield client
 
 '''
 real URLs
@@ -58,7 +57,7 @@ def test_contact_post3(client):
     assert resp.status_code == 200
 
 def test_contact_post4(client):
-    '''should get 405 if form data is missing'''
+    '''should get 400 if form data is missing'''
     resp = client.post('/contact/')
     assert resp.status_code == 400
 
