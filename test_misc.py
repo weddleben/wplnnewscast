@@ -80,6 +80,9 @@ def test_admin_post3(client):
 '''
 post request to non post URL(s)
 '''
+def test_home_post(client):
+    resp = client.post('/')
+    assert resp.status_code == 405
 
 def test_about_post(client):
     resp = client.post('/about/')
