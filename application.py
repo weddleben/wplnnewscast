@@ -3,7 +3,6 @@ from flask import Flask, request, redirect, render_template
 from rss import get_items, check_banner
 from mail import Mail
 
-send_email = Mail().send_email
 
 application = Flask(__name__)
 
@@ -54,7 +53,7 @@ def contact():
         email_message = request.form['email_message']
 
         to_send = f'Email Address: {email_address}\nEmail Message:\n{email_message}'
-        send_email(body=to_send)
+        Mail().send_email(body=to_send)
 
         return render_template('post_contact.html', emoji='&#128077;')
 
