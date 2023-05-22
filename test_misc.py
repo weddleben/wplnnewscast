@@ -4,11 +4,6 @@ from unittest.mock import MagicMock
 
 from application import application, Mail
 
-@pytest.fixture(autouse=True)
-def mock_EV():
-    os.environ['email_pass'] = 'nothing'
-    yield
-
 @pytest.fixture()
 def client():
     client = application.test_client()
