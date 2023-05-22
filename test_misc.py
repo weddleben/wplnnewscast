@@ -1,13 +1,24 @@
+import os
 import pytest
+from unittest.mock import MagicMock
 
-from application import application
+from application import application, Mail
 
+@pytest.fixture(autouse=True)
+def mock_EV():
+    os.environ['email_pass'] = 'nothing'
+    yield
 
 @pytest.fixture()
 def client():
     client = application.test_client()
     application.config.update({'TESTING': True})
     yield client
+
+@pytest.fixture
+def email_mock():
+    Mail.send_email = MagicMock(return_value=None)
+    yield
 
 '''
 real URLs
@@ -40,18 +51,18 @@ def test_admin(client):
 '''
 post request to valid post URL(s)
 '''
-def test_contact_post1(client):
+def test_contact_post1(client, email_mock):
     '''form data required for post request'''
     resp = client.post('/contact/', data={"email_address": "some email","email_message": "some message",})
     assert resp.status_code == 200
 
-def test_contact_post2(client):
+def test_contact_post2(client, email_mock):
     '''should still work if email_address is empty.
     '''
     resp = client.post('/contact/', data={"email_address": "","email_message": "some message",})
     assert resp.status_code == 200
 
-def test_contact_post3(client):
+def test_contact_post3(client, email_mock):
     '''an empty email_message should also come through fine. we're only doing validation on the front end.'''
     resp = client.post('/contact/', data={"email_address": "","email_message": "",})
     assert resp.status_code == 200
