@@ -16,24 +16,49 @@ def email_mock():
     yield
 
 '''
-real URLs
+GET requests to real URL(s)
 '''
 
 def test_home(client):
     resp = client.get('/')
     assert resp.status_code == 200
 
+def test_home_2(client):
+    '''download link should always be present on home route'''
+    resp = client.get('/')
+    assert 'Download' in resp.text
+
+def test_home_3(client):
+    '''audio element should be here as well. using closing tag because opening has attributes)'''
+    resp = client.get('/')
+    assert '</audio>' in resp.text
+
 def test_about(client):
     resp = client.get('/about/')
     assert resp.status_code == 200
+
+def test_about_2(client):
+    ''''WPLN' should always be present on every page'''
+    resp = client.get('/about/')
+    assert 'WPLN'  in resp.text
 
 def test_podcast(client):
     resp = client.get('/podcast/')
     assert resp.status_code == 200
 
+def test_podcast_2(client):
+    '''something like 'click this link' should be here'''
+    resp = client.get('/podcast/')
+    assert 'link' in resp.text
+
 def test_contact(client):
     resp = client.get('/contact/')
     assert resp.status_code == 200
+
+def test_contact_2(client):
+    '''always asking for an email address on this page'''
+    resp = client.get('/contact/')
+    assert 'email' in resp.text
 
 def test_podcastrss(client):
     resp = client.get('/podcastrss/')
@@ -41,7 +66,12 @@ def test_podcastrss(client):
 
 def test_admin(client):
     resp = client.get('/admin/')
-    assert resp.status_code == 200 # redirect
+    assert resp.status_code == 200
+
+def test_admin_2(client):
+    '''admin page will always have a button for setting the banner message'''
+    resp = client.get('/admin/')
+    assert '</button>' in resp.text
 
 '''
 post request to valid post URL(s)
@@ -102,9 +132,39 @@ def test_podcastrss_post(client):
     assert resp.status_code == 405
 
 '''
+PUT request no non-PUT URL(s)
+Currently no PUT requests are allowed/defined anywhere.
+'''
+def test_home_put(client):
+    resp = client.post('/')
+    assert resp.status_code == 405
+
+def test_home_put(client):
+    resp = client.put('/')
+    assert resp.status_code == 405
+
+def test_about_put(client):
+    resp = client.put('/about/')
+    assert resp.status_code == 405
+
+def test_podcast_put(client):
+    resp = client.put('/podcast/')
+    assert resp.status_code == 405
+
+def test_podcastrss_put(client):
+    resp = client.put('/podcastrss/')
+    assert resp.status_code == 405
+
+'''
 fake URL(s)
 '''
 
-def test_fake1(client):
+def test_fake_1(client):
+    '''doesn't exist == 404'''
     resp = client.get('/something/')
+    assert resp.status_code == 404
+
+def test_fake_2(client):
+    '''no matter the request type, 404 should be returned'''
+    resp = client.post('/something/')
     assert resp.status_code == 404
