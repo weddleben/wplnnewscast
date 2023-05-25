@@ -37,6 +37,7 @@ def admin():
             with open('message.txt', 'w') as banner:
                 banner.write(message)
                 banner.close()
+            return render_template('admin.html', emoji='&#128077;')
         else:
             return render_template('admin.html', emoji='&#128078;')
 
