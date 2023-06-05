@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-from ..rss import get_feed, get_items
+from ..utils.rss import get_feed, get_items
 
 
 def test_get_items():

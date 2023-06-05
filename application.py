@@ -1,7 +1,7 @@
 from flask import Flask, request, redirect, render_template
 
-from rss import get_items, check_banner
-from mail import Mail
+from .utils.rss import get_items, check_banner
+from .utils.mail import Mail
 
 
 application = Flask(__name__)
