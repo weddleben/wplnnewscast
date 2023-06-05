@@ -2,7 +2,7 @@ import os
 import pytest
 from unittest.mock import MagicMock
 
-from application import application, Mail
+from ..application import application, Mail
 
 @pytest.fixture()
 def client():
