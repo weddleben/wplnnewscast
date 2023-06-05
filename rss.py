@@ -16,7 +16,7 @@ def get_items():
     items = get_feed().findall('item')
     episodes = []
     for item in items:
-        episode = []
+        episode = {}
 
         title = item.find('title')
         title = title.text
@@ -24,28 +24,28 @@ def get_items():
         enclosure = item.find('enclosure').attrib
         enclosure = enclosure.get('url')
 
-        episode.append(title)
-        episode.append(enclosure)
+        episode.update({'title': title})
+        episode.update({'enclosure': enclosure})
 
         # separate bottom & top of hour
         top_of_hour = ':04'
         if top_of_hour in title:
-            episode.append('top_of_hour')
+            episode.update({'time':'top_of_hour'})
         
         bottom_of_hour = ':33'
         if bottom_of_hour in title:
-            episode.append('bottom_of_hour')
+            episode.update({'time':'bottom_of_hour'})
         
         if 'Monday' in title:
-            episode.append('Monday')
+            episode.update({'day':'Monday'})
         if 'Tuesday' in title:
-            episode.append('Tuesday')   
+            episode.update({'day':'Tuesday'})   
         if 'Wednesday' in title:
-            episode.append('Wednesday')
+            episode.update({'day':'Wednesday'})
         if 'Thursday' in title:
-            episode.append('Thursday')
+            episode.update({'day':'Thursday'})
         if 'Friday' in title:
-            episode.append('Friday')
+            episode.update({'day':'Friday'})
 
         episodes.append(episode)
 
