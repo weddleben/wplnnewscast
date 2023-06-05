@@ -23,6 +23,10 @@ def test_home(client):
     resp = client.get('/')
     assert resp.status_code == 200
 
+def test_home_2(client):
+    resp = client.get('/')
+    assert '<audio' in resp.text
+
 def test_about(client):
     resp = client.get('/about/')
     assert resp.status_code == 200
@@ -41,7 +45,7 @@ def test_podcastrss(client):
 
 def test_admin(client):
     resp = client.get('/admin/')
-    assert resp.status_code == 200 # redirect
+    assert resp.status_code == 200
 
 '''
 post request to valid post URL(s)
