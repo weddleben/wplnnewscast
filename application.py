@@ -19,6 +19,10 @@ def main():
 def about():
     return render_template('about.html')
 
+@application.route('/legal/')
+def legal():
+    return render_template('legal.html')
+
 @application.route('/podcast/')
 def podcast():
     return render_template('podcast.html')
@@ -74,4 +78,4 @@ def internal_error(e):
     return render_template("broken.html"), 500
 
 if __name__ == "__main__":
-    application.run()
+    application.run(debug=True)
