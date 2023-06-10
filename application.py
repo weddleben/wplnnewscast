@@ -78,4 +78,4 @@ def internal_error(e):
     return render_template("broken.html"), 500
 
 if __name__ == "__main__":
-    application.run(debug=True)
+    application.run()
