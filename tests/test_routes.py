@@ -36,11 +36,20 @@ def test_home_3(client):
 def test_about(client):
     resp = client.get('/about/')
     assert resp.status_code == 200
+    
 
 def test_about_2(client):
     ''''WPLN' should always be present on every page'''
     resp = client.get('/about/')
     assert 'WPLN'  in resp.text
+
+def test_legal_1(client):
+    resp = client.get('/legal/')
+    assert resp.status_code == 200
+
+def test_legal_2(client):
+    resp = client.get('/legal/')
+    assert 'LEGAL' or 'legal' in resp.text
 
 def test_podcast(client):
     resp = client.get('/podcast/')
