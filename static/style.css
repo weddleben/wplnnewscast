@@ -145,3 +145,21 @@ opacity: 1;
     padding-right: 25%;
     padding-left: 25%;
 }
+
+.up_arrow {
+    display: none;
+    font-size: 30pt;
+    background-color: black;
+    color: aliceblue;
+    float: right;
+    right: 2pt;
+    bottom: 60pt;
+    /* border-style:solid; */
+    border-radius: 100%;
+    border-style: none;
+    padding-right: 10pt;
+    padding-left: 10pt;
+    border-color: black;
+    /* font-weight: 300; */
+    position: fixed;
+}

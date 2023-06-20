@@ -65,7 +65,9 @@
 
     </div>
 
-    {% block content %}
+    {% block content %} 
+
+    <button class="up_arrow" id="up_arrow" onclick="scroll_to_top()">&uarr;</button>
 
     <script src="{{ url_for('static', filename='main.js') }}"></script>
     <br>

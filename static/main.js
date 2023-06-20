@@ -137,3 +137,22 @@ function reveal_filter(){
     toggle_button.innerText = "TOGGLE"
     toggle_button.className = "btn btn-outline-primary"
 }
+
+// scroll to top of page
+function scroll_to_top() {
+    document.documentElement.scrollTop = 0
+}
+
+// if users scrolls down on page, enable arrow button
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    var pagePosition = 600;
+    var mybutton = document.getElementById("up_arrow");
+    if (document.body.scrollTop > pagePosition || document.documentElement.scrollTop > pagePosition) {
+        mybutton.style.display = "block";
+    } else {
+        mybutton.style.display = "none";
+    }
+  }
