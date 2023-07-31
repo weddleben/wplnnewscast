@@ -20,6 +20,8 @@ header {
 
 .hero {
     text-align: center;
+    text-decoration: none;
+    color: black;
     
 }
 a:hover {
