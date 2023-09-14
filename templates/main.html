@@ -33,15 +33,20 @@
 
         gtag('config', 'G-VRD2RDME2Y');
     </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{{url_for('static', filename='js/mediaelement-and-player.min.js')}}"></script>
 
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}{% endblock %}WPLN Newscasts</title>
     <meta name="description" content="Listen to past WPLN newscasts">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='mobile.css') }}">
+    <link href="{{ url_for('static', filename='css/mediaelementplayer.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile.css') }}">
 </head>
 
 <body>
@@ -49,7 +54,8 @@
     <header>
         <a href="{{ url_for('main') }}" class="header_text">HOME</a>
         <a href="{{ url_for('podcast') }}" class="header_text">PODCAST</a>
-        <button class="btn btn-danger btn-sm" style="float: right; display: none;" id="stop_button" onclick="stop_all(); hide_stop()">STOP</button>
+        <button class="btn btn-danger btn-sm" style="float: right; display: none;" id="stop_button"
+            onclick="stop_all(); hide_stop()">STOP</button>
     </header>
 
     <br>
@@ -61,15 +67,16 @@
             <a href="{{ url_for('main') }}" class="hero">WPLN Newscasts</a>
         </h1>
 
-        <img src="{{url_for('static', filename='favicon.png')}}" class="hero_image" alt="nothing much, just a silly logo">
+        <img src="{{url_for('static', filename='favicon.png')}}" class="hero_image"
+            alt="nothing much, just a silly logo">
 
     </div>
 
-    {% block content %} 
+    {% block content %}
 
     <button class="up_arrow" id="up_arrow" onclick="scroll_to_top()">&uarr;</button>
 
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <br>
 
     {% if banner %}
@@ -79,80 +86,114 @@
     </div>
     {% endif %}
 
-<div class="to_fade1" id="to_fade">
+    <div class="to_fade1" id="to_fade">
 
-<div class="select_episodes" id="select_episodes">
-    <div class="select_episode">    
-        <input type="checkbox" class="btn-check" id="Monday" name="day" autocomplete="off" onclick="episodes_by_time('Monday');"/>
-        <label class="btn btn-primary" for="Monday">Monday</label>
-    </div>
-    <div class="select_episode">
-        <input type="checkbox" class="btn-check" id="Tuesday" name="day" autocomplete="off" onclick="episodes_by_time('Tuesday');"/>
-        <label class="btn btn-primary" for="Tuesday">Tuesday</label>
-    </div>
-    <div class="select_episode">
-        <input type="checkbox" class="btn-check" id="Wednesday" name="day" autocomplete="off" onclick="episodes_by_time('Wednesday');"/>
-        <label class="btn btn-primary" for="Wednesday">Wednesday</label>
-    </div>
-    <div class="select_episode">
-        <input type="checkbox" class="btn-check" id="Thursday" name="day" autocomplete="off" onclick="episodes_by_time('Thursday');"/>
-        <label class="btn btn-primary" for="Thursday">Thursday</label>
-    </div>
-    <div class="select_episode">
-        <input type="checkbox" class="btn-check" id="Friday" name="day" autocomplete="off" onclick="episodes_by_time('Friday');"/>
-        <label class="btn btn-primary" for="Friday">Friday</label>
-    </div>
-
-    <div class="filter_buttons">
-        <button type="button" class="btn btn-primary btn-lg" id="filter_toggle" onclick="toggleOnOff(); reveal_filter()">FILTER</button>
-    </div>
-
-</div>
-
-    <h3 class="episode_count" id="episode_count"></h3>
-    <br>
-
-    <div class="episodes">
-
-        {% for item in items %}
-
-        <div class="episode {{ item.get('time') }} {{ item.get('day') }}">
-            <h3>
-                {{ item.get('title') }}
-            </h3>
-
-            <div>
-                <audio controls src="{{ item.get('enclosure') }}" class="episode_download_link" onended="hide_stop()" onpause="check_if_playing()">
-                    something
-                </audio>
-                <a href="{{ item.get('enclosure') }}" class="episode_download_link link_mobile" download>Download</a>
+        <div class="select_episodes" id="select_episodes">
+            <div class="select_episode">
+                <input type="checkbox" class="btn-check" id="Monday" name="day" autocomplete="off"
+                    onclick="episodes_by_time('Monday');" />
+                <label class="btn btn-primary" for="Monday">Monday</label>
             </div>
+            <div class="select_episode">
+                <input type="checkbox" class="btn-check" id="Tuesday" name="day" autocomplete="off"
+                    onclick="episodes_by_time('Tuesday');" />
+                <label class="btn btn-primary" for="Tuesday">Tuesday</label>
+            </div>
+            <div class="select_episode">
+                <input type="checkbox" class="btn-check" id="Wednesday" name="day" autocomplete="off"
+                    onclick="episodes_by_time('Wednesday');" />
+                <label class="btn btn-primary" for="Wednesday">Wednesday</label>
+            </div>
+            <div class="select_episode">
+                <input type="checkbox" class="btn-check" id="Thursday" name="day" autocomplete="off"
+                    onclick="episodes_by_time('Thursday');" />
+                <label class="btn btn-primary" for="Thursday">Thursday</label>
+            </div>
+            <div class="select_episode">
+                <input type="checkbox" class="btn-check" id="Friday" name="day" autocomplete="off"
+                    onclick="episodes_by_time('Friday');" />
+                <label class="btn btn-primary" for="Friday">Friday</label>
+            </div>
+
+            <div class="filter_buttons">
+                <button type="button" class="btn btn-primary btn-lg" id="filter_toggle"
+                    onclick="toggleOnOff(); reveal_filter()">FILTER</button>
+            </div>
+
         </div>
 
+        <h3 class="episode_count" id="episode_count"></h3>
+        <br>
 
-        {% endfor %}
+        <div class="episodes">
+
+            {% for item in items %}
+
+            <div class="episode {{ item.get('time') }} {{ item.get('day') }}">
+                <h3>
+                    {{ item.get('title') }}
+                </h3>
+
+                <div>
+                    <audio class="mejs_player episode_download_link" id="player" controls
+                        src="{{ item.get('enclosure') }}" onended="hide_stop()" onpause="check_if_playing()"
+                        >
+                        something
+                    </audio>
+                    <a href="{{ item.get('enclosure') }}" class="episode_download_link link_mobile"
+                        download>Download</a>
+                </div>
+            </div>
+
+
+            {% endfor %}
+
+        </div>
 
     </div>
-
-</div>
 
     <br>
 
     <!-- call when the page first loads -->
     <script>
-    update_count()
-    fade()
+        update_count()
+        fade()
     </script>
+
 
     {% endblock %}
 
     <footer>
         <h5 class="footer_text">
-            Please consider <a href="https://nashvillepublicradio.org/membership/" style="text-decoration: none;">supporting Nashville Public Radio</a>.
+            Please consider <a href="https://nashvillepublicradio.org/membership/"
+                style="text-decoration: none;">supporting Nashville Public Radio</a>.
         </h5>
         <a href="{{ url_for('about') }}" class="footer_links">ABOUT</a>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const playerElements = document.getElementsByTagName("audio");
 
+            for (let i = 0; i < playerElements.length; i++) {
+
+
+                var player = new MediaElementPlayer(playerElements[i], {
+                    // When using `MediaElementPlayer`, an `instance` argument
+                    // is available in the `success` callback
+                    features: ['playpause','current','progress','duration','volume'],
+                    success: function (mediaElement, originalNode, instance) {
+                        // do things
+                        console.log("MediaElement", mediaElement);
+                        console.log("originalNode", originalNode);
+                        console.log("instance", instance);
+                    }
+                });
+            }
+
+
+
+        });
+    </script>
 </body>
 
 
