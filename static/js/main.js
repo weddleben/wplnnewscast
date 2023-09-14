@@ -1,12 +1,31 @@
+// Wrap each audio element with the MediaElementPlayer class
+document.addEventListener("DOMContentLoaded", function () {
+    const playerElements = document.getElementsByTagName("audio");
+
+    for (let i = 0; i < playerElements.length; i++) {
+        var player = new MediaElementPlayer(playerElements[i], {
+            // List of features to enable for the player
+            features: ['playpause', 'current', 'progress', 'duration', 'volume'],
+            success: function (mediaElement, originalNode, instance) {
+                // Callback function executed when the player is successfully initialized
+                console.log("MediaElement", mediaElement); // The enhanced audio element
+                console.log("originalNode", originalNode); // The original HTML5 <audio> element
+                console.log("instance", instance); // The MediaElementPlayer instance
+            }
+        });
+    }
+});
+
+
 // THANK YOU 
 document.addEventListener('play', function (e) {
-var audios = document.getElementsByTagName('audio');
-for (var i = 0, len = audios.length; i < len; i++) {
-    if (audios[i] != e.target) {
-        audios[i].pause();
-        reveal_stop();
+    var audios = document.getElementsByTagName('audio');
+    for (var i = 0, len = audios.length; i < len; i++) {
+        if (audios[i] != e.target) {
+            audios[i].pause();
+            reveal_stop();
+        }
     }
-}
 }, true);
 
 /*
@@ -86,20 +105,20 @@ function update_count() {
 
 // fade in elements on start
 
-function fade(){
+function fade() {
     var to_fade = document.getElementsByClassName('to_fade1');
     for (var i = 0; i < to_fade.length; i++) {
         to_fade[i].classList.add('to_fade2')
     }
 }
 
- /*
- stop all audio players
- */ 
- function stop_all() {
+/*
+stop all audio players
+*/
+function stop_all() {
     var audios = document.getElementsByTagName('audio');
     for (var i = 0, len = audios.length; i < len; i++) {
-            audios[i].pause();
+        audios[i].pause();
     }
 }
 
@@ -119,19 +138,19 @@ function check_if_playing() {
     var total_count = 0
     for (var i = 0; i < audio.length; i++) {
 
-    if (audio[i].paused){
-        total_count++
-    }
+        if (audio[i].paused) {
+            total_count++
         }
+    }
     if (total_count == audio_players_count) {
         hide_stop()
     }
 }
 
-function reveal_filter(){
+function reveal_filter() {
     var filters = document.getElementsByClassName("select_episode");
     for (var i = 0; i < filters.length; i++) {
-    filters[i].style.display = "inline-block"
+        filters[i].style.display = "inline-block"
     }
     var toggle_button = document.getElementById("filter_toggle")
     toggle_button.innerText = "TOGGLE"
@@ -145,7 +164,7 @@ function scroll_to_top() {
 
 // if users scrolls down on page, enable arrow button
 
-window.onscroll = function() {scrollFunction()};
+window.onscroll = function () { scrollFunction() };
 
 function scrollFunction() {
     var pagePosition = 600;
@@ -155,4 +174,4 @@ function scrollFunction() {
     } else {
         mybutton.style.display = "none";
     }
-  }
+}

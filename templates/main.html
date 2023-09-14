@@ -135,7 +135,7 @@
                 </h3>
 
                 <div>
-                    <audio class="mejs_player episode_download_link" id="player" controls
+                    <audio class="mejs_player episode_download_link" id="player" 
                         src="{{ item.get('enclosure') }}" onended="hide_stop()" onpause="check_if_playing()"
                         >
                         something
@@ -170,30 +170,7 @@
         </h5>
         <a href="{{ url_for('about') }}" class="footer_links">ABOUT</a>
     </footer>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const playerElements = document.getElementsByTagName("audio");
-
-            for (let i = 0; i < playerElements.length; i++) {
-
-
-                var player = new MediaElementPlayer(playerElements[i], {
-                    // When using `MediaElementPlayer`, an `instance` argument
-                    // is available in the `success` callback
-                    features: ['playpause','current','progress','duration','volume'],
-                    success: function (mediaElement, originalNode, instance) {
-                        // do things
-                        console.log("MediaElement", mediaElement);
-                        console.log("originalNode", originalNode);
-                        console.log("instance", instance);
-                    }
-                });
-            }
-
-
-
-        });
-    </script>
+   
 </body>
 
 
