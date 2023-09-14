@@ -166,3 +166,23 @@ opacity: 1;
     position: fixed;
 }
 
+.mejs-container {
+   
+}
+
+.mejs_player {
+    /* background-color: red;
+    border-radius: 25px; */
+    
+}
+
+.mejs_player button {
+    /* color: white; */
+}
+
+.mejs_player button:hover {
+   /* cursor: pointer; */
+}
+ 
+
+
