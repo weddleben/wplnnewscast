@@ -176,8 +176,9 @@ opacity: 1;
 }
 
 .mejs_player {
-    /* background-color: red;
-    border-radius: 25px; */
+    border-radius: 15pt;
+    /* hides rectangle shadow outline */
+    overflow: hidden;
     
 }
 
