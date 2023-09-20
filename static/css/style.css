@@ -56,7 +56,12 @@ a:hover {
     }
     .episode_count {
         margin-top: 7%;
-
+    }
+    /* shrink player width for mobile, 
+    default bleeds element off screen */
+    .mejs_player {
+        max-width: 300px;
+        
     }
 }
 
