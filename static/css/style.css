@@ -172,13 +172,13 @@ opacity: 1;
 }
 
 .mejs-container {
-   
+
 }
 
 .mejs_player {
-    border-radius: 15pt;
+    /* border-radius: 15pt; */
     /* hides rectangle shadow outline */
-    overflow: hidden;
+    /* overflow:hidden; */
     
 }
 
