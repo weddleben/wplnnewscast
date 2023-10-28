@@ -9,8 +9,6 @@ application = Flask(__name__)
 @application.route('/', methods=['GET'])
 def main():
     items = get_items()
-    length = len(items)
-
     banner = check_banner()
 
     return(render_template('main.html', items=items, banner=banner))
