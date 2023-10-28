@@ -13,7 +13,7 @@ def main():
 
     banner = check_banner()
 
-    return(render_template('main.html', items=items, length=length, banner=banner))
+    return(render_template('main.html', items=items, banner=banner))
 
 @application.route('/about/')
 def about():
