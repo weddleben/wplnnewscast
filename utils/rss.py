@@ -54,8 +54,4 @@ def get_items():
 def check_banner():
     banner = open('message.txt', 'r')
     banner = banner.read()
-
-    if banner == '':
-        return False
-
     return banner

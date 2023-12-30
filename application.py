@@ -39,11 +39,11 @@ def admin():
             with open('message.txt', 'w') as banner:
                 banner.write(message)
                 banner.close()
-            return render_template('admin.html', emoji='&#128077;')
-        else:
-            return render_template('admin.html', emoji='&#128078;')
+            return render_template('admin.html', emoji='&#128077;', banner_text = check_banner())
+        else:   
+            return render_template('admin.html', emoji='&#128078;', banner_text = check_banner())
 
-    return render_template('admin.html')
+    return render_template('admin.html', banner_text = check_banner())
 
 @application.route('/contact/', methods=['GET', 'POST'] )    
 def contact():
@@ -76,4 +76,4 @@ def internal_error(e):
     return render_template("broken.html"), 500
 
 if __name__ == "__main__":
-    application.run()
+    application.run(debug=True)
