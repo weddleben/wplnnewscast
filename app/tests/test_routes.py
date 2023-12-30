@@ -2,12 +2,12 @@ import os
 import pytest
 from unittest.mock import MagicMock
 
-from ..application import application, Mail
+from app import app, Mail
 
 @pytest.fixture()
 def client():
-    client = application.test_client()
-    application.config.update({'TESTING': True})
+    client = app.test_client()
+    app.config.update({'TESTING': True})
     yield client
 
 @pytest.fixture
