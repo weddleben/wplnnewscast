@@ -121,7 +121,7 @@ class Episode():
         root = feed.getroot()
         root = root.find('channel')
         number_of_items = root.findall('item')
-        if len(number_of_items) > 65:
+        if len(number_of_items) > 50:
             guid_of_item = number_of_items[-1]
             guid = guid_of_item.find('guid').text
             root.remove(guid_of_item)
