@@ -136,7 +136,7 @@
 
                 <div>
                     <audio class="mejs_player episode_download_link" id="player" 
-                        src="{{ item.get('enclosure') }}" onended="hide_stop()" onpause="check_if_playing()"
+                        src="{{ item.get('enclosure') }}" preload="none" onended="hide_stop()" onpause="check_if_playing()"
                         >
                         something
                     </audio>
