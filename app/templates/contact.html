@@ -10,7 +10,7 @@
 
 <div style="padding-bottom: 15pt;"></div>
 
-<form class="contact_form needs-validation" novalidate method=post enctype=multipart/form-data>
+<form class="contact_form needs-validation" id="contact_form" novalidate method=post enctype=multipart/form-data>
     <div class="form-group">
       <label for="email_address">Email Address</label>
       <input type="email" class="form-control" id="email_address" name="email_address" aria-describedby="emailHelp" placeholder="not required">
@@ -29,6 +29,7 @@
     </div>
     <br>
     <button type="submit" class="btn btn-primary">Send</button>
+    <div class="cf-turnstile" id="cf-turnstile" data-sitekey="0x4AAAAAAAwctC--83QNgwV6"></div>
   </form>
 
 </div>
@@ -45,16 +46,28 @@
   Array.prototype.slice.call(forms)
     .forEach(function (form) {
       form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
+        if (!form.checkValidity() || !turnstile.getResponse()) {
           event.preventDefault()
           event.stopPropagation()
         }
-
+       
         form.classList.add('was-validated')
+     
       }, false)
     })
 })()
 </script>
 
+<script>
+// if using synchronous loading, will be called once the DOM is ready
+turnstile.ready(function () {
+  turnstile.render("#contact_form", {
+    sitekey: "0x4AAAAAAAwctC--83QNgwV6",
+    callback: function (token) {
+      console.log(`Challenge Success ${token}`);
+    },
+  });
+});
+</script>
 
 {% endblock %}
