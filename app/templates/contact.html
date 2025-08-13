@@ -27,6 +27,10 @@
         what do you want to tell us?
       </div>
     </div>
+
+    <!-- send something from the front end to prevent bots from spamming this endpoint -->
+    <input type="hidden" value="notabot" id="notabot" name="notabot">
+    
     <br>
     <button type="submit" class="btn btn-primary">Send</button>
     <div class="cf-turnstile" id="cf-turnstile" data-sitekey="0x4AAAAAAAwctC--83QNgwV6"></div>

@@ -49,6 +49,9 @@ def admin():
 def contact():
     if request.method == 'POST':
 
+        if not request.form["notabot"]:
+            return
+
         email_address = request.form['email_address']
         if email_address == '':
             email_address = 'not provided'
