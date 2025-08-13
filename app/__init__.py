@@ -50,7 +50,7 @@ def contact():
     if request.method == 'POST':
 
         if not request.form["notabot"]:
-            return
+            return "you're no good, you're no good"
 
         email_address = request.form['email_address']
         if email_address == '':

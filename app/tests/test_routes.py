@@ -88,24 +88,30 @@ post request to valid post URL(s)
 '''
 def test_contact_post1(client, email_mock):
     '''form data required for post request'''
-    resp = client.post('/contact/', data={"email_address": "some email","email_message": "some message",})
+    resp = client.post('/contact/', data={"email_address": "some email","email_message": "some message", "notabot": "notabot"})
     assert resp.status_code == 200
 
 def test_contact_post2(client, email_mock):
     '''should still work if email_address is empty.
     '''
-    resp = client.post('/contact/', data={"email_address": "","email_message": "some message",})
+    resp = client.post('/contact/', data={"email_address": "","email_message": "some message", "notabot": "notabot"})
     assert resp.status_code == 200
 
 def test_contact_post3(client, email_mock):
     '''an empty email_message should also come through fine. we're only doing validation on the front end.'''
-    resp = client.post('/contact/', data={"email_address": "","email_message": "",})
+    resp = client.post('/contact/', data={"email_address": "","email_message": "",  "notabot": "notabot"})
     assert resp.status_code == 200
 
 def test_contact_post4(client):
     '''should get 400 if form data is missing'''
     resp = client.post('/contact/')
     assert resp.status_code == 400
+
+def test_contact_post5(client):
+    '''should fail if the 'notabot' field is not sent'''
+    resp = client.post("/contact/", data={"email_address": "some email","email_message": "some message"})
+    assert resp.status_code == 400
+    
 
 def test_admin_post1(client):
     '''this is NOT testing whether the credentials are correct! only if the post request works'''
