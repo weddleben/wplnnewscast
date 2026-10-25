@@ -1,10 +1,18 @@
+import os
+from pathlib import Path
+from secrets import compare_digest
+
+from dotenv import load_dotenv
 from flask import Flask, request, redirect, render_template
 
 from app.utils.rss import get_items, check_banner
 from app.utils.mail import Mail
 
 
+load_dotenv(Path(__file__).resolve().parent.parent / '.env')
+
 app = Flask(__name__)
+app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', '')
 
 @app.route('/', methods=['GET'])
 def main():
@@ -33,9 +41,10 @@ def podcastrss():
 def admin():
     if request.method == 'POST':
 
-        user = request.form['user']
+        password = request.form['password']
         message = request.form['message']
-        if user == 'hackmebitches':
+        admin_password = app.config['ADMIN_PASSWORD']
+        if admin_password and compare_digest(password.encode('utf-8'), admin_password.encode('utf-8')):
             with open('message.txt', 'w') as banner:
                 banner.write(message)
                 banner.close()

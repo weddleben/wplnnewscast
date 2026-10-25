@@ -115,18 +115,39 @@ def test_contact_post5(client):
 
 def test_admin_post1(client):
     '''this is NOT testing whether the credentials are correct! only if the post request works'''
-    resp = client.post('/admin/', data={"user": "","message": "",})
+    resp = client.post('/admin/', data={"password": "","message": "",})
     assert resp.status_code == 200
 
 def test_admin_post2(client):
-    '''if incorrect username is given, page should return 200 + html'''
-    resp = client.post('/admin/', data={"user": "bad_username","message": "some message",})
+    '''if incorrect password is given, page should return 200 + html'''
+    resp = client.post('/admin/', data={"password": "bad_password","message": "some message",})
     assert resp.status_code == 200
 
 def test_admin_post3(client):
     '''should fail if form data is missing'''
     resp = client.post('/admin/')
     assert resp.status_code == 400
+
+def test_admin_password_updates_banner(client, monkeypatch, tmp_path):
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / 'message.txt').write_text('original')
+    monkeypatch.setitem(app.config, 'ADMIN_PASSWORD', 'test-password')
+    resp = client.post('/admin/', data={'password': 'test-password', 'message': 'updated'})
+    assert resp.status_code == 200
+    assert (tmp_path / 'message.txt').read_text() == 'updated'
+
+@pytest.mark.parametrize('configured, supplied', [
+    ('test-password', 'wrong-password'),
+    ('', ''),
+    ('', 'some-password'),
+])
+def test_admin_rejects_invalid_password(client, monkeypatch, tmp_path, configured, supplied):
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / 'message.txt').write_text('original')
+    monkeypatch.setitem(app.config, 'ADMIN_PASSWORD', configured)
+    resp = client.post('/admin/', data={'password': supplied, 'message': 'updated'})
+    assert resp.status_code == 200
+    assert (tmp_path / 'message.txt').read_text() == 'original'
 
 '''
 post request to non post URL(s)
