@@ -1,5 +1,5 @@
 html, body {
-    background-color:rgb(217, 217, 217);
+    background-color: #aeb7c2;
     /* font-family:monospace */
 }
 
@@ -97,12 +97,20 @@ footer {
 }
 
 .episode {
-    background: linear-gradient( rgb(121, 178, 225), rgb(190, 215, 235));
-    /* border: solid; */
-    /* border-color: rgba(145, 87, 87, 0.389); */
-    box-shadow: 4px 4px 6px;
+    background: linear-gradient(145deg, #343c46, #191d23);
+    border-radius: 12px;
+    box-shadow: 0 4px 30px 10px rgba(25, 29, 35, 0.4);
+    color: #f4f5f7;
     padding: 20px;
     flex: 1 1 auto;    
+}
+
+.episode a {
+    color: #b9d8f5;
+}
+
+.episode a:hover {
+    color: #ffffff;
 }
 
 .episode_download_link {
